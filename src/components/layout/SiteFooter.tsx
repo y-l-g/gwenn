@@ -11,13 +11,28 @@ export function SiteFooter() {
   return (
     <footer className="on-dark relative overflow-hidden bg-humus text-mycelium">
       <RootSystem
-        className="pointer-events-none absolute -top-2 left-1/2 w-[900px] max-w-none -translate-x-1/2 opacity-[0.14]"
-        width={900}
-        height={420}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[560px] w-full opacity-[0.13] md:h-full md:opacity-[0.22]"
+        width={1600}
+        height={560}
         seed={17}
         color="var(--color-mycelium)"
-        mode="view"
-        depth={5}
+        threadColor="var(--color-chanterelle)"
+        mode="static"
+        fit="slice"
+        fade
+        network
+        mat
+        origins={[
+          { x: 170, angle: 84, length: 130, width: 7, depth: 5 },
+          { x: 470, angle: 96, length: 92, width: 5, depth: 4, gravity: 0.2 },
+          { x: 760, angle: 88, length: 150, width: 8.5, depth: 5 },
+          { x: 1010, angle: 100, length: 84, width: 4.5, depth: 4 },
+          { x: 1240, angle: 80, length: 132, width: 7, depth: 5 },
+          { x: 1500, angle: 94, length: 96, width: 5.5, depth: 4 },
+          { x: 330, angle: 70, length: 56, width: 3, depth: 4, gravity: 0.1 },
+          { x: 610, angle: 108, length: 50, width: 2.6, depth: 3, gravity: 0.1 },
+          { x: 1380, angle: 112, length: 58, width: 3, depth: 4, gravity: 0.1 },
+        ]}
       />
       <div className="container-site relative grid gap-12 pb-28 pt-20 md:grid-cols-12 lg:pb-14">
         <div className="md:col-span-5">

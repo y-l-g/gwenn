@@ -324,6 +324,12 @@ a {
   }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
 @keyframes pulse-flow {
   to {
     stroke-dashoffset: -40;
@@ -352,6 +358,11 @@ a {
     animation-delay: calc(var(--d, 0) * 1ms + 300ms);
   }
 
+  .fade-in-late {
+    animation: fade-in 1.4s ease both;
+    animation-delay: 1.4s;
+  }
+
   .sway {
     transform-box: fill-box;
     transform-origin: var(--origin, 50% 100%);
@@ -375,6 +386,12 @@ a {
       animation: rise linear both;
       animation-timeline: view();
       animation-range: entry 5% cover 28%;
+    }
+
+    .fade-on-view {
+      animation: fade-in linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 55%;
     }
 
     .draw-on-view .draw-path {

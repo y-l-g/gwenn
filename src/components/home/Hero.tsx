@@ -4,9 +4,8 @@ import type { CSSProperties } from "react";
 import heroPhoto from "@/assets/photos/terrasse-angle-ciel.jpg";
 import { business } from "@/content/business";
 import { BeechLeaf, ChestnutLeaf, OakLeaf, OakTwig } from "@/components/illustrations/Botanical";
-import { RootSystem } from "@/components/illustrations/Underground";
+import { MeadowEdge } from "@/components/illustrations/Underground";
 import { ArrowRight, ClockIcon, EuroIcon, PhoneIcon, PinIcon } from "@/components/ui/Icons";
-import { grass } from "@/lib/organic";
 
 const falling = [
   { left: "8%", dur: "19s", delay: "-4s", x: "70px", r: "320deg", kind: "beech", fill: "var(--color-beech)" },
@@ -91,29 +90,7 @@ export function Hero() {
         </figure>
       </div>
 
-      <div className="relative mt-10 sm:mt-14" aria-hidden="true">
-        <svg viewBox="0 0 1600 40" preserveAspectRatio="xMidYMax slice" className="block h-8 w-full">
-          <path d={grass(1600, 40, 31, 0.32, 26)} fill="var(--color-moss)" opacity=".85" />
-          <path d="M0 39 C300 37 600 40 900 38 C1200 36 1400 39 1600 38 V40 H0Z" fill="var(--color-chestnut)" opacity=".6" />
-        </svg>
-        <RootSystem
-          className="mx-auto -mt-1 h-auto w-[max(100%,900px)] max-w-none opacity-80 [margin-inline:calc(50%-max(50%,450px))]"
-          width={1600}
-          height={230}
-          seed={9}
-          depth={5}
-          network
-          origins={[
-            { x: 800, length: 74, width: 9 },
-            { x: 330, angle: 70, length: 52, width: 6, depth: 4, gravity: 0.15 },
-            { x: 560, angle: 115, length: 38, width: 4, depth: 3, gravity: 0.1 },
-            { x: 1090, angle: 62, length: 46, width: 5.5, depth: 4, gravity: 0.12 },
-            { x: 1330, angle: 105, length: 40, width: 4.5, depth: 3, gravity: 0.15 },
-            { x: 120, angle: 80, length: 30, width: 3, depth: 3 },
-            { x: 1520, angle: 100, length: 30, width: 3, depth: 3 },
-          ]}
-        />
-      </div>
+      <MeadowEdge className="mt-8 block h-[170px] w-full sm:mt-12 sm:h-[210px] lg:h-[260px]" />
     </section>
   );
 }

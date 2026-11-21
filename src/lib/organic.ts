@@ -205,3 +205,154 @@ export function beechVeins(count = 7) {
   }
   return out.join(" ");
 }
+
+/* ------------------------------------------------------- fibrous roots */
+
+export type Strand = { d: string; width: number; depth: number };
+
+/**
+ * Fibrous roots of a grass clump or small plant: many thin, wavy strands
+ * fanning down from a crown, each with a few root hairs.
+ */
+export function fibrousRoots({
+  x,
+  y,
+  seed,
+  count = 12,
+  length = 90,
+  spread = 70,
+  width = 1.6,
+}: {
+  x: number;
+  y: number;
+  seed: number;
+  count?: number;
+  length?: number;
+  spread?: number;
+  width?: number;
+}): Strand[] {
+  const rand = rng(seed);
+  const out: Strand[] = [];
+  for (let i = 0; i < count; i++) {
+    const t = count === 1 ? 0.5 : i / (count - 1);
+    let a = 90 + (t - 0.5) * spread * 2 + (rand() - 0.5) * 14;
+    const len = length * (0.45 + rand() * 0.6) * (1 - Math.abs(t - 0.5) * 0.5);
+    const steps = 5;
+    const pts: Pt[] = [{ x: x + (rand() - 0.5) * 10, y }];
+    let cx = pts[0].x;
+    let cy = y;
+    for (let s = 0; s < steps; s++) {
+      a += (90 - a) * 0.18 + (rand() - 0.5) * 26;
+      cx += Math.cos((a * Math.PI) / 180) * (len / steps);
+      cy += Math.sin((a * Math.PI) / 180) * (len / steps);
+      pts.push({ x: cx, y: cy });
+    }
+    out.push({ d: smoothPath(pts), width: r1(width * (0.55 + rand() * 0.55)), depth: 0 });
+    // root hairs along the strand
+    const hairs = 1 + Math.floor(rand() * 3);
+    for (let h = 0; h < hairs; h++) {
+      const base = pts[1 + Math.floor(rand() * (pts.length - 2))];
+      const ha = a + (rand() > 0.5 ? 1 : -1) * (35 + rand() * 40);
+      const hl = 8 + rand() * 18;
+      const mid = { x: base.x + Math.cos((ha * Math.PI) / 180) * hl * 0.5, y: base.y + Math.sin((ha * Math.PI) / 180) * hl * 0.5 + 2 };
+      const end = { x: base.x + Math.cos((ha * Math.PI) / 180) * hl, y: base.y + Math.sin((ha * Math.PI) / 180) * hl + 5 };
+      out.push({ d: smoothPath([base, mid, end]), width: 0.6, depth: 1 });
+    }
+  }
+  return out;
+}
+
+/** A tapering taproot (dandelion, dock) as a filled shape, plus side rootlets. */
+export function taproot({ x, y, length, width, seed }: { x: number; y: number; length: number; width: number; seed: number }) {
+  const rand = rng(seed);
+  const n = 8;
+  const spine: Pt[] = [];
+  let cx = x;
+  for (let i = 0; i <= n; i++) {
+    const t = i / n;
+    cx += (rand() - 0.5) * 6;
+    spine.push({ x: cx, y: y + t * length });
+  }
+  const left: Pt[] = [];
+  const right: Pt[] = [];
+  spine.forEach((p, i) => {
+    const t = i / n;
+    const w = (width / 2) * Math.pow(1 - t, 1.4) + 0.3;
+    left.push({ x: p.x - w, y: p.y });
+    right.push({ x: p.x + w, y: p.y });
+  });
+  const body = `${smoothPath(left)} L${r1(right[right.length - 1].x)} ${r1(right[right.length - 1].y)} ${smoothPath(right.reverse()).replace(/^M[^C]+/, "")} Z`;
+  const side: Strand[] = [];
+  for (let i = 2; i < n; i++) {
+    if (rand() > 0.75) continue;
+    const p = spine[i];
+    const dir = rand() > 0.5 ? 1 : -1;
+    const l = 14 + rand() * 26 * (1 - i / n);
+    side.push({
+      d: smoothPath([p, { x: p.x + dir * l * 0.5, y: p.y + l * 0.25 }, { x: p.x + dir * l, y: p.y + l * 0.6 + rand() * 8 }]),
+      width: 0.8,
+      depth: 1,
+    });
+  }
+  return { body, side };
+}
+
+/* ------------------------------------------------------- hyphal fans */
+
+/**
+ * Mycelium spreading from the foot of a mushroom: a fan of wandering,
+ * repeatedly forking hyphae that thin out as they go.
+ */
+export function hyphalFan({
+  x,
+  y,
+  seed,
+  reach = 110,
+  arms = 7,
+  depth = 3,
+  width = 1.5,
+  fan = [15, 165],
+}: {
+  x: number;
+  y: number;
+  seed: number;
+  reach?: number;
+  arms?: number;
+  depth?: number;
+  width?: number;
+  /** Angular range in degrees (0 = right, 90 = down). */
+  fan?: [number, number];
+}) {
+  const rand = rng(seed);
+  const out: Strand[] = [];
+  const tips: Pt[] = [];
+  const grow = (sx: number, sy: number, a: number, len: number, w: number, level: number) => {
+    const steps = 4;
+    const pts: Pt[] = [{ x: sx, y: sy }];
+    let cx = sx;
+    let cy = sy;
+    let ca = a;
+    for (let i = 0; i < steps; i++) {
+      ca += (rand() - 0.5) * 44;
+      cx += Math.cos((ca * Math.PI) / 180) * (len / steps);
+      cy += Math.sin((ca * Math.PI) / 180) * (len / steps);
+      pts.push({ x: cx, y: cy });
+    }
+    out.push({ d: smoothPath(pts), width: r1(w), depth: level });
+    if (level >= depth) {
+      tips.push({ x: cx, y: cy });
+      return;
+    }
+    const kids = rand() > 0.4 ? 2 : 3;
+    for (let k = 0; k < kids; k++) {
+      const from = pts[1 + Math.floor(rand() * (pts.length - 1))];
+      grow(from.x, from.y, ca + (rand() - 0.5) * 80, len * (0.5 + rand() * 0.3), Math.max(0.35, w * 0.62), level + 1);
+    }
+  };
+  for (let i = 0; i < arms; i++) {
+    const t = arms === 1 ? 0.5 : i / (arms - 1);
+    const a = fan[0] + (fan[1] - fan[0]) * t + (rand() - 0.5) * 12;
+    grow(x + (rand() - 0.5) * 6, y, a, reach * (0.45 + rand() * 0.35), width * (0.7 + rand() * 0.4), 0);
+  }
+  return { strands: out, tips };
+}
