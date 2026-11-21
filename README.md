@@ -32,8 +32,8 @@ Les textes et données sont dans `src/content/` :
 
 - `business.ts` : coordonnées.
 - `services.ts` : prestations, FAQ et métadonnées SEO.
-- `photos.ts` : photos de chantiers, affichées sur l'accueil (les cinq premières) et sur la page terrasses. Pour en ajouter une, déposer le fichier dans `src/assets/photos/`, l'importer, puis ajouter une ligne au tableau `workPhotos` avec une courte description.
-- `area.ts` : communes desservies.
+- `photos.ts` : photos de chantiers, affichées sur la page terrasses. Pour en ajouter une, déposer le fichier dans `src/assets/photos/`, l'importer, puis ajouter une ligne au tableau `workPhotos` avec une courte description.
+- `area.ts` : communes desservies (rayon de 20 km) et villes dessinées sur la carte.
 - `habitat.ts`, `seasons.ts` : contenu du réseau « conseil habitat » et du calendrier des saisons.
 
 Les illustrations sont des SVG procéduraux dans `src/components/illustrations/`.

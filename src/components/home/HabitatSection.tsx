@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { business, mailto } from "@/content/business";
+import { business } from "@/content/business";
 import { habitatTopics } from "@/content/habitat";
 import { hypha, tuft } from "@/lib/organic";
 import { HabitatNetwork, type EdgeGeometry } from "./HabitatNetwork";
-import { ArrowRight, MailIcon, PhoneIcon } from "@/components/ui/Icons";
+import { PhoneIcon } from "@/components/ui/Icons";
 
 function buildGeometry() {
   const seen = new Set<string>();
@@ -72,15 +72,6 @@ export function HabitatSection({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
           <div className="flex flex-col gap-3 lg:col-span-5 lg:items-end">
             <a href={business.phoneHref} className="btn btn-light w-full sm:w-auto">
               <PhoneIcon /> Appeler le {business.phone}
-            </a>
-            <a
-              href={mailto(
-                "Conseil habitat : demande d'appel de 30 minutes",
-                "Bonjour Gwenn,\n\nJe souhaiterais un appel conseil habitat.\n\nCe que je constate :\n\nAnnée de construction (environ) :\nType de chauffage :\nCréneaux qui m'arrangent :\n\nMerci !",
-              )}
-              className="btn btn-ghost w-full sm:w-auto"
-            >
-              <MailIcon /> Proposer un créneau par e-mail <ArrowRight className="h-4 w-4" />
             </a>
           </div>
         </div>

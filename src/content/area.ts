@@ -8,37 +8,48 @@ export type Town = {
 
 export const home = { name: "Moréac", lat: 47.9203, lng: -2.8186 };
 
+/** Towns drawn on the map (a readable subset of the communes below). */
 export const towns: Town[] = [
-  { name: "Locminé", lat: 47.886, lng: -2.835, main: true },
-  { name: "Pontivy", lat: 48.068, lng: -2.963, main: true },
-  { name: "Baud", lat: 47.875, lng: -3.02, main: true },
-  { name: "Vannes", lat: 47.658, lng: -2.76, main: true },
-  { name: "Auray", lat: 47.668, lng: -2.982, main: true },
-  { name: "Ploërmel", lat: 47.932, lng: -2.397, main: true },
-  { name: "Josselin", lat: 47.952, lng: -2.547 },
-  { name: "Grand-Champ", lat: 47.758, lng: -2.843 },
-  { name: "Saint-Jean-Brévelay", lat: 47.846, lng: -2.722 },
-  { name: "Plumelec", lat: 47.839, lng: -2.64 },
-  { name: "Bignan", lat: 47.88, lng: -2.77 },
-  { name: "Moustoir-Ac", lat: 47.854, lng: -2.836 },
-  { name: "Évellys", lat: 47.993, lng: -2.833 },
-  { name: "Réguiny", lat: 47.975, lng: -2.745 },
-  { name: "Rohan", lat: 48.069, lng: -2.751 },
-  { name: "Pluméliau-Bieuzy", lat: 47.958, lng: -2.976 },
-  { name: "Guénin", lat: 47.907, lng: -2.979 },
-  { name: "Colpo", lat: 47.817, lng: -2.81 },
-  { name: "Guéhenno", lat: 47.893, lng: -2.638 },
-  { name: "Pluvigner", lat: 47.776, lng: -3.012 },
-  { name: "Sainte-Anne-d'Auray", lat: 47.7, lng: -2.955 },
-  { name: "Saint-Avé", lat: 47.688, lng: -2.736 },
-  { name: "Elven", lat: 47.732, lng: -2.59 },
+  { name: "Locminé", lat: 47.8803, lng: -2.8384, main: true },
+  { name: "Pontivy", lat: 48.0663, lng: -2.9697, main: true },
+  { name: "Baud", lat: 47.8693, lng: -3.0287, main: true },
+  { name: "Grand-Champ", lat: 47.762, lng: -2.8509, main: true },
+  { name: "Saint-Jean-Brévelay", lat: 47.8314, lng: -2.7243, main: true },
+  { name: "Rohan", lat: 48.0891, lng: -2.7475 },
+  { name: "Noyal-Pontivy", lat: 48.0544, lng: -2.8786 },
+  { name: "Réguiny", lat: 47.9879, lng: -2.7661 },
+  { name: "Évellys", lat: 47.9714, lng: -2.8675 },
+  { name: "Pluméliau-Bieuzy", lat: 47.9726, lng: -2.9896 },
+  { name: "Guénin", lat: 47.9007, lng: -2.9669 },
+  { name: "Bignan", lat: 47.8737, lng: -2.7498 },
+  { name: "Moustoir-Ac", lat: 47.844, lng: -2.8571 },
+  { name: "Colpo", lat: 47.8169, lng: -2.8108 },
+  { name: "Plumelec", lat: 47.8237, lng: -2.6227 },
+  { name: "Guégon", lat: 47.925, lng: -2.5903 },
+  { name: "Pleugriffet", lat: 47.9924, lng: -2.6896 },
 ];
+
+/**
+ * Every Morbihan commune whose centre lies within 20 km of Moréac
+ * (source: geo.api.gouv.fr, straight-line distance), listed on /zone-intervention.
+ */
+export const communes = [
+  "Baud", "Bignan", "Billio", "Brandivy", "Bréhan", "Buléon", "Camors", "Colpo", "Crédin", "Cruguel",
+  "Évellys", "Grand-Champ", "Guégon", "Guéhenno", "Gueltas", "Guénin", "Kerfourn", "La Chapelle-Neuve",
+  "Lantillac", "Le Sourn", "Locmaria-Grand-Champ", "Locminé", "Locqueltas", "Moréac", "Moustoir-Ac",
+  "Noyal-Pontivy", "Plaudren", "Pleugriffet", "Plumelec", "Plumelin", "Pluméliau-Bieuzy", "Pontivy",
+  "Radenac", "Réguiny", "Rohan", "Saint-Allouestre", "Saint-Barthélemy", "Saint-Jean-Brévelay",
+  "Saint-Thuriau",
+].sort((a, b) => a.localeCompare(b, "fr"));
+
+export const RADIUS_KM = 20;
 
 export const mainTowns = towns.filter((t) => t.main);
 
 /* ---------- Map projection ---------- */
 
-export const MAP = { width: 1000, height: 940, west: -3.25, east: -2.3, north: 48.15, south: 47.55 };
+// Framed on the 20 km zone; about 20 px per km on both axes.
+export const MAP = { width: 1000, height: 980, west: -3.15, east: -2.48, north: 48.14, south: 47.7 };
 
 export function project(lat: number, lng: number) {
   const x = ((lng - MAP.west) / (MAP.east - MAP.west)) * MAP.width;

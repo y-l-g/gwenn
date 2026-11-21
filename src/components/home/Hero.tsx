@@ -19,14 +19,10 @@ export function Hero() {
     <section className="relative overflow-x-clip" aria-labelledby="hero-title">
       <div className="container-site grid items-start gap-x-10 gap-y-12 pt-6 sm:pt-10 lg:grid-cols-12 lg:pt-12">
         <div className="relative z-10 lg:col-span-6 lg:pt-14">
-          <h1 id="hero-title" className="rise-in display-xl max-w-[13ch] lg:text-[clamp(3rem,1.2rem+4.4vw,5.6rem)]">
-            Haies taillées, bois fendu, terrasses posées{" "}
-            <span className="wonk block text-rust">autour de Moréac.</span>
+          <h1 id="hero-title" className="rise-in display-xl max-w-[18ch] text-[clamp(2.5rem,1.6rem+3.4vw,4.4rem)]">
+            Paysagiste en éco-jardinage, constructions bois légères{" "}
+            <span className="wonk text-rust">et conseil en bâtiment</span>
           </h1>
-          <p className="rise-in lead mt-7 max-w-[38ch] text-ink-soft" style={{ "--rise-delay": "120ms" } as CSSProperties}>
-            Je m&apos;appelle Gwenn Joannic. J&apos;entretiens les jardins, je construis des terrasses, pergolas et
-            carports en bois, et je vous conseille sur votre maison.
-          </p>
           <div className="rise-in mt-9 flex flex-wrap gap-3" style={{ "--rise-delay": "220ms" } as CSSProperties}>
             <a href={business.phoneHref} className="btn">
               <PhoneIcon /> {business.phone}
@@ -58,7 +54,7 @@ export function Hero() {
                 <Link href="/zone-intervention" className="font-semibold text-ink link-quiet">
                   Moréac et alentours
                 </Link>{" "}
-                : Locminé, Pontivy, Baud, Vannes, Auray, Ploërmel
+                : Locminé, Pontivy, Baud, Grand-Champ
               </span>
             </li>
           </ul>

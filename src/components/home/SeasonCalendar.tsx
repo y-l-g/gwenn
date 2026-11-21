@@ -1,7 +1,6 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import Link from "next/link";
 import { months, monthsLong, seasonRows, type Level } from "@/content/seasons";
 
 const toneColor: Record<string, string> = {
@@ -49,13 +48,6 @@ export function SeasonCalendar() {
           </h2>
           <p className="reveal mt-6 text-ink-soft">
             Les meilleures périodes pour chaque travail. Au printemps et à l&apos;automne, appelez un peu à l&apos;avance.
-          </p>
-          <p className="reveal mt-6 rounded-2xl bg-humus p-5 text-[0.98rem] text-mycelium">
-            <Link href="/conseil-habitat" className="font-display text-lg text-chanterelle no-underline hover:underline">
-              Conseil habitat
-            </Link>
-            <br />
-            Disponible toute l&apos;année.
           </p>
         </div>
 

@@ -32,8 +32,8 @@ export default function OpengraphImage() {
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 64, lineHeight: 1.02, color: "#23271d", letterSpacing: -1.5 }}>Haies taillées, bois fendu, terrasses posées</span>
-            <span style={{ fontSize: 64, lineHeight: 1.1, fontStyle: "italic", color: "#a3461e" }}>autour de Moréac.</span>
+            <span style={{ fontSize: 56, lineHeight: 1.05, color: "#23271d", letterSpacing: -1.5 }}>Paysagiste en éco-jardinage, constructions bois légères</span>
+            <span style={{ fontSize: 56, lineHeight: 1.1, fontStyle: "italic", color: "#a3461e" }}>et conseil en bâtiment</span>
           </div>
           <span style={{ fontSize: 30, color: "#3f5a2b" }}>07 52 08 70 16</span>
         </div>

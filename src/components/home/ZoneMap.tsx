@@ -1,26 +1,18 @@
-import { home, MAP, project, towns } from "@/content/area";
+import { home, MAP, project, RADIUS_KM, towns } from "@/content/area";
 import { hypha, smoothPath, tuft } from "@/lib/organic";
 import type { CSSProperties } from "react";
 
 type LabelPos = { dx: number; dy: number; anchor: "start" | "middle" | "end" };
 
 const labelPos: Record<string, LabelPos> = {
-  Locminé: { dx: -16, dy: 30, anchor: "end" },
+  Locminé: { dx: -16, dy: 34, anchor: "end" },
   Pontivy: { dx: 18, dy: -14, anchor: "start" },
-  Baud: { dx: -18, dy: 8, anchor: "end" },
-  Vannes: { dx: 18, dy: -6, anchor: "start" },
-  Auray: { dx: -18, dy: -2, anchor: "end" },
-  Ploërmel: { dx: 0, dy: -24, anchor: "end" },
+  Baud: { dx: -18, dy: 34, anchor: "start" },
+  "Grand-Champ": { dx: 18, dy: 10, anchor: "start" },
+  "Saint-Jean-Brévelay": { dx: 16, dy: 34, anchor: "start" },
 };
 
 const ll = (lat: number, lng: number) => project(lat, lng);
-
-// Rough coastline of the Gulf of Morbihan and the Étel-Carnac shore.
-const sea = [
-  [47.62, -3.25], [47.645, -3.17], [47.6, -3.1], [47.585, -3.03], [47.6, -2.97], [47.57, -2.95],
-  [47.59, -2.88], [47.62, -2.84], [47.635, -2.8], [47.648, -2.76], [47.628, -2.72], [47.6, -2.7],
-  [47.585, -2.66], [47.567, -2.75], [47.561, -2.85], [47.553, -2.9],
-].map(([a, b]) => ll(a, b));
 
 const blavet = [[48.15, -3.0], [48.068, -2.963], [48.02, -3.02], [47.98, -3.04], [47.93, -3.06], [47.87, -3.04], [47.82, -3.12], [47.79, -3.25]].map(([a, b]) => ll(a, b));
 const oust = [[48.15, -2.72], [48.069, -2.751], [48.02, -2.66], [47.952, -2.547], [47.9, -2.44], [47.81, -2.38], [47.75, -2.3]].map(([a, b]) => ll(a, b));
@@ -30,14 +22,13 @@ const d767 = [[48.15, -3.04], [48.068, -2.963], [47.97, -2.88], [47.886, -2.835]
 export function ZoneMap({ className }: { className?: string }) {
   const c = project(home.lat, home.lng);
   const points = towns.map((t) => ({ ...t, p: project(t.lat, t.lng) }));
-  const seaPath = `M0 ${sea[0].y} ${sea.map((p) => `L${p.x} ${p.y}`).join(" ")} L${sea[sea.length - 1].x} ${MAP.height} L0 ${MAP.height}Z`;
   const kmPx = MAP.height / ((MAP.north - MAP.south) * 111);
 
   return (
     <svg viewBox={`0 0 ${MAP.width} ${MAP.height}`} className={`draw-on-view ${className ?? ""}`} role="img" aria-labelledby="map-title map-desc">
       <title id="map-title">Zone d&apos;intervention autour de Moréac</title>
       <desc id="map-desc">
-        Carte stylisée du centre Morbihan : Moréac au centre, reliée à Locminé, Pontivy, Baud, Vannes, Auray, Ploërmel et aux communes voisines.
+        Carte stylisée du centre Morbihan : Moréac au centre et un cercle de {RADIUS_KM} km, qui englobe Locminé, Pontivy, Baud, Grand-Champ, Saint-Jean-Brévelay et les communes voisines.
       </desc>
       <defs>
         <radialGradient id="zone-glow">
@@ -48,18 +39,9 @@ export function ZoneMap({ className }: { className?: string }) {
       </defs>
 
       <rect width={MAP.width} height={MAP.height} fill="var(--color-humus-2)" rx="28" />
-      <path d={seaPath} fill="#1c2a2c" />
-      {[0, 1, 2].map((i) => (
-        <path key={i} d={smoothPath(sea.map((p) => ({ x: p.x, y: p.y + 16 + i * 16 })))} fill="none" stroke="var(--color-water)" strokeWidth="1" opacity={0.3 - i * 0.08} />
-      ))}
-      <ellipse cx={ll(47.59, -2.845).x} cy={ll(47.59, -2.845).y} rx="16" ry="7" fill="var(--color-humus-2)" transform={`rotate(-30 ${ll(47.59, -2.845).x} ${ll(47.59, -2.845).y})`} />
-      <ellipse cx={ll(47.596, -2.795).x} cy={ll(47.596, -2.795).y} rx="12" ry="6" fill="var(--color-humus-2)" />
-      <text x="120" y="910" className="fill-water font-display" fontSize="26" fontStyle="italic" opacity=".8">
-        Golfe du Morbihan
-      </text>
 
-      <circle cx={c.x} cy={c.y} r={33 * kmPx} fill="url(#zone-glow)" />
-      <circle cx={c.x} cy={c.y} r={30 * kmPx} fill="none" stroke="var(--color-chanterelle)" strokeOpacity=".35" strokeDasharray="3 9" strokeWidth="1.5" />
+      <circle cx={c.x} cy={c.y} r={(RADIUS_KM + 3) * kmPx} fill="url(#zone-glow)" />
+      <circle cx={c.x} cy={c.y} r={RADIUS_KM * kmPx} fill="none" stroke="var(--color-chanterelle)" strokeOpacity=".35" strokeDasharray="3 9" strokeWidth="1.5" />
 
       <path d={smoothPath(blavet)} fill="none" stroke="var(--color-water)" strokeWidth="3" opacity=".75" />
       <path d={smoothPath(oust)} fill="none" stroke="var(--color-water)" strokeWidth="3" opacity=".75" />

@@ -56,7 +56,7 @@ export const services: Service[] = [
     seo: {
       title: "Entretien de jardin, taille de haies et élagage léger autour de Moréac",
       description:
-        "Taille de haies, tonte, désherbage, taille d'arbres fruitiers, élagage léger et bois de chauffage à Moréac, Locminé, Pontivy, Baud, Vannes et alentours. CESU accepté, crédit d'impôt possible.",
+        "Taille de haies, tonte, désherbage, taille d'arbres fruitiers, élagage léger et bois de chauffage à Moréac, Locminé, Pontivy, Baud, Grand-Champ et alentours. CESU accepté, crédit d'impôt possible.",
     },
     faq: [
       {
@@ -107,7 +107,7 @@ export const services: Service[] = [
     seo: {
       title: "Terrasse bois, pergola et carport autour de Moréac",
       description:
-        "Construction de terrasses en bois, pergolas, carports et petits ouvrages sur mesure dans le Morbihan : Moréac, Locminé, Pontivy, Vannes, Ploërmel, Auray, Baud.",
+        "Construction de terrasses en bois, pergolas, carports et petits ouvrages sur mesure dans le Morbihan : Moréac, Locminé, Pontivy, Baud, Grand-Champ, Saint-Jean-Brévelay.",
     },
     faq: [
       {

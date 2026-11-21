@@ -12,11 +12,9 @@ import coffretOuvert from "@/assets/photos/coffret-compteur-ouvert.jpg";
 export type Photo = { src: StaticImageData; alt: string };
 
 /**
- * Photos of completed work, shown in the galleries on the home page and on
- * /terrasses-pergolas-carports.
+ * Photos of completed work, shown in the gallery on /terrasses-pergolas-carports.
  * To add a photo: drop the file in src/assets/photos, import it above and add
  * an entry below with a short description (read aloud by screen readers).
- * The first five photos are the ones shown on the home page.
  */
 export const workPhotos: Photo[] = [
   { src: terrasseVueEnsemble, alt: "Terrasse en pin le long d'une maison à bardage bois" },

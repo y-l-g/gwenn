@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl, business } from "@/content/business";
-import { towns } from "@/content/area";
+import { communes, mainTowns, RADIUS_KM } from "@/content/area";
 import { services, type Faq, type Service } from "@/content/services";
 
 export function pageMetadata({
@@ -53,12 +53,11 @@ export function localBusinessSchema() {
     },
     geo: { "@type": "GeoCoordinates", latitude: business.geo.lat, longitude: business.geo.lng },
     areaServed: [
-      { "@type": "City", name: business.locality },
-      ...towns.map((t) => ({ "@type": "City", name: t.name })),
+      ...communes.map((name) => ({ "@type": "City", name })),
       {
         "@type": "GeoCircle",
         geoMidpoint: { "@type": "GeoCoordinates", latitude: business.geo.lat, longitude: business.geo.lng },
-        geoRadius: 35000,
+        geoRadius: RADIUS_KM * 1000,
       },
     ],
     paymentAccepted: "CESU",
@@ -85,7 +84,7 @@ export function serviceSchema(service: Service) {
     description: service.seo.description,
     url: absoluteUrl(service.path),
     provider: { "@id": businessId },
-    areaServed: [business.locality, ...towns.filter((t) => t.main).map((t) => t.name)].map((name) => ({
+    areaServed: [business.locality, ...mainTowns.map((t) => t.name)].map((name) => ({
       "@type": "City",
       name,
     })),

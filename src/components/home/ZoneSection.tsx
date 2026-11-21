@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { mainTowns } from "@/content/area";
+import { mainTowns, RADIUS_KM } from "@/content/area";
 import { ZoneMap } from "./ZoneMap";
 import { ArrowRight } from "@/components/ui/Icons";
 
@@ -15,8 +15,8 @@ export function ZoneSection() {
             Zone <span className="wonk text-chanterelle">d&apos;intervention</span>
           </h2>
           <p className="reveal lead mt-6 text-mycelium/85">
-            Basé à Moréac, j&apos;interviens dans le centre Morbihan : {mainTowns.map((t) => t.name).join(", ")} et les
-            communes voisines.
+            Basé à Moréac, j&apos;interviens dans un rayon de {RADIUS_KM} km : {mainTowns.map((t) => t.name).join(", ")}{" "}
+            et les communes voisines.
           </p>
           <Link href="/zone-intervention" className="reveal mt-8 inline-flex items-center gap-2 font-semibold text-chanterelle link-quiet">
             Toutes les communes <ArrowRight className="h-4 w-4" />
