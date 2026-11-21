@@ -1,9 +1,9 @@
-# Builds the static site and publishes it to GitHub Pages (preview at jojojardin.y-l.fr).
+# Builds the static site and publishes it to GitHub Pages (preview at jojojardin.y-l.fr) on each push to main.
 name: Deploy preview to GitHub Pages
 
 on:
   push:
-    branches: [site-vitrine]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
