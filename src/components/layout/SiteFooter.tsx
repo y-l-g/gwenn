@@ -5,7 +5,6 @@ import { services } from "@/content/services";
 import { LogoMark } from "@/components/illustrations/Logo";
 import { RootSystem } from "@/components/illustrations/Underground";
 import { MailIcon, PhoneIcon, PinIcon } from "@/components/ui/Icons";
-import { slug } from "@/lib/text";
 
 export function SiteFooter() {
   const others = towns.filter((t) => !t.main).map((t) => t.name);
@@ -27,8 +26,8 @@ export function SiteFooter() {
             <span className="font-display text-2xl wonk">Services Jardin Joannic</span>
           </Link>
           <p className="mt-5 max-w-sm text-mycelium/75">
-            Gwenn Joannic, à son compte près de Moréac. Entretien de jardin, constructions en bois, taille légère et
-            conseil habitat, à environ 30 minutes à la ronde.
+            Gwenn Joannic, à son compte à Moréac. Entretien de jardin, constructions en bois et conseil habitat dans le
+            centre Morbihan.
           </p>
           <ul className="mt-7 space-y-3">
             <li>
@@ -60,16 +59,6 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/realisations" className="link-quiet no-underline hover:underline">
-                Réalisations
-              </Link>
-            </li>
-            <li>
-              <Link href="/cesu-credit-impot" className="link-quiet no-underline hover:underline">
-                CESU et crédit d&apos;impôt
-              </Link>
-            </li>
           </ul>
         </nav>
 
@@ -80,14 +69,7 @@ export function SiteFooter() {
             </Link>
           </h2>
           <p className="mt-4 text-mycelium/85">
-            {mainTowns.map((t, i) => (
-              <span key={t.name}>
-                <Link href={`/zone-intervention#${slug(t.name)}`} className="font-semibold no-underline hover:underline">
-                  {t.name}
-                </Link>
-                {i < mainTowns.length - 1 ? ", " : ""}
-              </span>
-            ))}
+            <span className="font-semibold">{mainTowns.map((t) => t.name).join(", ")}</span>
           </p>
           <p className="mt-3 text-sm leading-relaxed text-mycelium/60">et aussi {others.join(", ")}.</p>
         </div>
@@ -98,9 +80,6 @@ export function SiteFooter() {
           <p className="flex gap-5">
             <Link href="/mentions-legales" className="hover:underline">
               Mentions légales
-            </Link>
-            <Link href="/contact" className="hover:underline">
-              Contact
             </Link>
           </p>
         </div>

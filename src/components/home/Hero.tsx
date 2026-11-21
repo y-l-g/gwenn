@@ -24,8 +24,8 @@ export function Hero() {
             <span className="wonk block text-rust">autour de Moréac.</span>
           </h1>
           <p className="rise-in lead mt-7 max-w-[38ch] text-ink-soft" style={{ "--rise-delay": "120ms" } as CSSProperties}>
-            Je m&apos;appelle Gwenn Joannic. J&apos;entretiens les jardins, je construis terrasses, pergolas et carports en
-            bois, et je mets mes six années dans le bâtiment à votre service pour mieux comprendre votre maison.
+            Je m&apos;appelle Gwenn Joannic. J&apos;entretiens les jardins, je construis des terrasses, pergolas et
+            carports en bois, et je vous conseille sur votre maison.
           </p>
           <div className="rise-in mt-9 flex flex-wrap gap-3" style={{ "--rise-delay": "220ms" } as CSSProperties}>
             <a href={business.phoneHref} className="btn">
@@ -39,10 +39,8 @@ export function Hero() {
             <li className="flex gap-3">
               <EuroIcon className="mt-0.5 h-5 w-5 shrink-0 text-moss" />
               <span>
-                <Link href="/cesu-credit-impot" className="font-semibold text-ink link-quiet">
-                  CESU acceptés
-                </Link>
-                , crédit d&apos;impôt possible sur le jardinage
+                <strong className="font-semibold text-ink">CESU acceptés</strong>, crédit d&apos;impôt possible sur le
+                jardinage
               </span>
             </li>
             <li className="flex gap-3">
@@ -51,23 +49,22 @@ export function Hero() {
                 <Link href="/conseil-habitat" className="font-semibold text-ink link-quiet">
                   Conseil habitat
                 </Link>{" "}
-                : 30 minutes au téléphone, offertes
+                gratuit, toute l&apos;année
               </span>
             </li>
             <li className="flex gap-3">
               <PinIcon className="mt-0.5 h-5 w-5 shrink-0 text-moss" />
               <span>
-                Moréac et{" "}
                 <Link href="/zone-intervention" className="font-semibold text-ink link-quiet">
-                  30 minutes autour
+                  Moréac et alentours
                 </Link>{" "}
-                : Pontivy, Vannes, Ploërmel, Baud, Auray
+                : Locminé, Pontivy, Baud, Vannes, Auray, Ploërmel
               </span>
             </li>
           </ul>
         </div>
 
-        <figure className="relative mx-auto w-full max-w-[34rem] lg:col-span-6 lg:mr-0">
+        <figure className="relative mx-auto w-full lg:col-span-6 lg:mt-10">
           {falling.map((f, i) => (
             <svg
               key={i}
@@ -81,28 +78,20 @@ export function Hero() {
               {f.kind === "chestnut" && <ChestnutLeaf fill={f.fill} s={0.85} />}
             </svg>
           ))}
-          <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-[1.75rem] bg-paper-deep shadow-[0_40px_80px_-40px_rgb(35_39_29/0.55)]">
+          <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem_8rem_2rem_8rem] bg-paper-deep shadow-[0_40px_80px_-40px_rgb(35_39_29/0.55)] sm:rounded-[2.5rem_11rem_2.5rem_11rem]">
             <Image
               src={heroPhoto}
               alt="Terrasse en pin construite par Gwenn Joannic, vue à ras des lames, devant une maison à bardage bois"
               fill
               preload
               placeholder="blur"
-              sizes="(min-width: 1024px) 34rem, (min-width: 640px) 34rem, 92vw"
+              sizes="(min-width: 1024px) 40rem, 92vw"
               className="object-cover object-[62%_50%]"
               quality={80}
             />
             <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-ink/10" />
           </div>
           <OakTwig className="pointer-events-none absolute -left-10 -top-8 z-10 w-[58%] max-w-[300px] sm:-left-20 sm:-top-10" />
-          <figcaption className="absolute -bottom-3 right-3 z-30 max-w-[15rem] rotate-[-2deg] rounded-xl bg-paper px-4 py-3 text-sm leading-snug shadow-[0_12px_30px_-16px_rgb(35_39_29/0.5)] sm:-right-6">
-            <span className="font-display text-base wonk">Terrasse en pin</span>
-            <br />
-            <span className="text-ink-mute">Lames croisées, rives habillées.</span>{" "}
-            <Link href="/realisations/terrasse-pin-lames-croisees" prefetch className="font-semibold text-rust-deep link-quiet">
-              Voir le chantier
-            </Link>
-          </figcaption>
         </figure>
       </div>
 

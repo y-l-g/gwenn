@@ -44,16 +44,12 @@ export function HabitatSection({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
           </Heading>
           <div className="reveal lg:col-span-5">
             <p className="lead text-mycelium/85">
-              Comme les racines sous une forêt, les problèmes d&apos;une maison communiquent. L&apos;humidité refroidit les
-              murs, le froid fait tourner le chauffage, des fenêtres neuves changent la façon dont l&apos;air circule.
+              Les problèmes d&apos;une maison sont souvent liés : l&apos;humidité refroidit les murs, le froid fait
+              tourner le chauffage, des fenêtres neuves changent la circulation de l&apos;air.
             </p>
           </div>
         </div>
-        <p className="reveal mt-8 max-w-2xl text-mycelium/70">
-          Survolez ou touchez un sujet pour voir à quoi il se rattache.
-        </p>
-
-        <div className="mt-8">
+        <div className="mt-12">
           <HabitatNetwork topics={habitatTopics} edges={edges} tufts={tufts} />
         </div>
 
@@ -63,14 +59,13 @@ export function HabitatSection({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
               30 minutes au téléphone, <span className="wonk text-chanterelle">offertes.</span>
             </p>
             <p className="mt-4 max-w-xl text-mycelium/80">
-              Six ans dans le bâtiment m&apos;ont appris à écouter une maison. Vous m&apos;expliquez ce que vous
-              constatez, on démêle ensemble les causes possibles et vous repartez avec des pistes claires. Si des travaux
-              se justifient, on en parle et je vous fais un devis.
+              J&apos;ai travaillé six ans dans le bâtiment. Vous m&apos;expliquez ce que vous constatez, on cherche
+              ensemble les causes et vous repartez avec des pistes claires. Toute l&apos;année, solaire compris.
             </p>
             <p className="mt-4 text-sm text-spore">
-              Un échange de conseil, pas un diagnostic officiel (DPE ou audit énergétique).{" "}
+              Un conseil, pas un diagnostic officiel (DPE ou audit énergétique).{" "}
               <Link href="/conseil-habitat" className="font-semibold text-mycelium link-quiet">
-                Tout savoir sur le conseil habitat
+                En savoir plus
               </Link>
             </p>
           </div>

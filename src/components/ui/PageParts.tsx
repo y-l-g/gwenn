@@ -68,7 +68,8 @@ export function FaqList({ faq, title = "Questions fréquentes" }: { faq: Faq[]; 
 
 export function Steps({ steps, tone = "var(--color-chestnut)" }: { steps: { title: string; text: string }[]; tone?: string }) {
   const W = 1000;
-  const thread = hypha({ x: 40, y: 30 }, { x: W - 40, y: 30 }, 5, 0.05, 4);
+  // Low wobble keeps the whole curve inside the 60px-high band.
+  const thread = hypha({ x: 40, y: 30 }, { x: W - 40, y: 30 }, 5, 0.015, 0);
   return (
     <div className="relative">
       <svg viewBox={`0 0 ${W} 60`} preserveAspectRatio="none" className="draw-on-view absolute inset-x-0 top-0 hidden h-[60px] w-full lg:block" aria-hidden="true">

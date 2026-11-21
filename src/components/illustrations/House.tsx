@@ -1,4 +1,4 @@
-import { hypha, rng, roots, smoothPath } from "@/lib/organic";
+import { rng, smoothPath } from "@/lib/organic";
 import { Apple, Cep, Chanterelle, Mycena } from "./Botanical";
 import type { CSSProperties } from "react";
 
@@ -33,35 +33,14 @@ const markers = [
   { n: 8, x: 222, y: 236 },
 ];
 
-/** A Breton stone house in cutaway, with the hidden life of the soil below. */
+/** A Breton stone house in cutaway, with numbered markers for the topics. */
 export function HouseCutaway({ className, showMarkers = true }: { className?: string; showMarkers?: boolean }) {
   const wall = stoneWall(92, 282, 214, 380, 5);
-  const rand = rng(14);
-  const soilThreads = Array.from({ length: 12 }, (_, i) =>
-    hypha({ x: 20 + rand() * 560, y: 400 + rand() * 30 }, { x: 20 + rand() * 560, y: 440 + rand() * 70 }, 70 + i, 0.18, 2),
-  );
-  const treeRoots = roots({ x: 540, y: 382, length: 54, depth: 4, width: 6, spread: 40, seed: 31 });
 
   return (
-    <svg viewBox="0 0 600 520" className={className} aria-hidden="true">
-      {/* soil */}
-      <path d="M0 380 H600 V520 H0Z" fill="var(--color-humus-2)" />
-      <path d="M0 380 C120 376 240 384 360 379 C460 375 540 382 600 380 V392 H0Z" fill="var(--color-chestnut)" />
-      <g fill="none" stroke="var(--color-chanterelle)" strokeLinecap="round" className="draw-on-view">
-        {soilThreads.map((t, i) => (
-          <g key={i} opacity=".55">
-            <path d={t.main} strokeWidth="1.1" pathLength={1} className="draw-path" />
-            {t.side.map((d, j) => (
-              <path key={j} d={d} strokeWidth=".7" opacity=".7" />
-            ))}
-          </g>
-        ))}
-      </g>
-      <g fill="none" stroke="#8a5a34" strokeLinecap="round">
-        {treeRoots.map((s) => (
-          <path key={s.order} d={s.d} strokeWidth={s.width} opacity={0.9 - s.depth * 0.12} />
-        ))}
-      </g>
+    <svg viewBox="0 0 600 410" className={className} aria-hidden="true">
+      {/* ground */}
+      <path d="M0 380 C120 376 240 384 360 379 C460 375 540 382 600 380 V410 H0Z" fill="var(--color-chestnut)" />
       <path d="M92 380 V396 H470 V380" fill="#6e6250" />
 
       {/* gutter and downpipe */}

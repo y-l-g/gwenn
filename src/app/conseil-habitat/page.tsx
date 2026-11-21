@@ -12,6 +12,8 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { HouseCutaway, houseMarkerOrder } from "@/components/illustrations/House";
 import { SoilHorizon, Sprouting } from "@/components/illustrations/Underground";
 import { MailIcon, PhoneIcon } from "@/components/ui/Icons";
+import { ServiceArt } from "@/components/illustrations/ServiceArt";
+import Link from "next/link";
 
 const service = getService("habitat");
 
@@ -22,51 +24,53 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const steps = [
-  { title: "Vous appelez", text: "Ou vous m'écrivez pour fixer un créneau. Dites-moi en deux mots ce qui vous préoccupe." },
-  { title: "On fait le tour", text: "Je vous pose des questions sur la maison, son âge, son chauffage, ce que vous constatez et depuis quand." },
-  { title: "Je vous explique", text: "Les causes probables, ce qui est urgent ou non, les erreurs à éviter et les pistes possibles." },
-  { title: "Vous décidez", text: "Vous repartez avec des idées claires. Si des travaux sont utiles, on peut en reparler et je vous fais un devis." },
+  { title: "Vous appelez", text: "Ou vous m'écrivez pour fixer un créneau." },
+  { title: "On fait le tour", text: "La maison, son âge, son chauffage, ce que vous constatez." },
+  { title: "Je vous explique", text: "Les causes probables, ce qui presse et les erreurs à éviter." },
+  { title: "Vous décidez", text: "Vous repartez avec des pistes claires." },
 ];
 
 export default function HabitatPage() {
   return (
     <>
-      <section className="relative overflow-x-clip pb-16 pt-6 sm:pt-8">
+      <section className="on-dark relative overflow-x-clip bg-humus pb-16 pt-6 text-mycelium sm:pb-20 sm:pt-8">
         <div className="container-site">
           <Breadcrumbs items={[{ name: service.name, path: service.path }]} />
           <div className="mt-8 grid items-center gap-12 lg:grid-cols-12">
             <div className="lg:col-span-6">
-              <h1 className="rise-in display-lg text-[clamp(2.4rem,1.3rem+3.8vw,4.6rem)]">
-                Comprendre votre maison, <span className="wonk text-rust">30 minutes offertes</span>
+              <p className="rise-in flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider">
+                <span className="rounded-full bg-chanterelle px-3 py-1 text-humus">Gratuit</span>
+                <span className="rounded-full bg-mycelium/10 px-3 py-1">Toute l&apos;année</span>
+                <span className="rounded-full bg-mycelium/10 px-3 py-1">Par téléphone</span>
+              </p>
+              <h1 className="rise-in display-lg mt-6 text-[clamp(2.4rem,1.3rem+3.8vw,4.6rem)] text-mycelium">
+                Conseil habitat, <span className="wonk text-chanterelle">30 minutes offertes</span>
               </h1>
-              <p className="rise-in lead mt-6 max-w-[42ch] text-ink-soft">
-                Humidité, sensation de froid, factures d&apos;électricité, chauffage, fenêtres, isolation, ventilation :
-                appelez-moi et parlons-en. Six ans dans le bâtiment m&apos;ont appris que les causes se cachent souvent
-                ailleurs que là où le problème se voit.
+              <p className="rise-in lead mt-6 max-w-[42ch] text-mycelium/85">
+                Humidité, froid, factures, chauffage, isolation, ventilation, panneaux solaires : appelez-moi et parlons-en.
               </p>
               <div className="rise-in mt-8 flex flex-wrap gap-3">
-                <a href={business.phoneHref} className="btn">
+                <a href={business.phoneHref} className="btn btn-light">
                   <PhoneIcon /> Appeler le {business.phone}
                 </a>
                 <a
-                  href={mailto("Conseil habitat : demande d'appel de 30 minutes", "Bonjour Gwenn,\n\nJe souhaiterais un appel conseil habitat.\n\nCe que je constate :\n\nAnnée de construction (environ) :\nType de chauffage :\nCréneaux qui m'arrangent :\n\nMerci !")}
+                  href={mailto("Conseil habitat : demande d'appel", "Bonjour Gwenn,\n\nJe souhaiterais un appel conseil habitat.\n\nCe que je constate :\n\nCréneaux qui m'arrangent :\n\nMerci !")}
                   className="btn btn-ghost"
                 >
-                  <MailIcon /> Proposer un créneau
+                  <MailIcon /> Envoyer un e-mail
                 </a>
               </div>
-              <p className="rise-in mt-6 max-w-[48ch] text-sm text-ink-mute">
-                Gratuit et sans engagement. Ce n&apos;est ni un DPE ni un audit énergétique, mais un échange pour savoir par
-                où commencer.
+              <p className="rise-in mt-6 max-w-[48ch] text-sm text-spore">
+                Sans engagement. Ce n&apos;est ni un DPE ni un audit énergétique.
               </p>
             </div>
             <figure className="relative lg:col-span-6">
-              <div className="overflow-hidden rounded-[2rem] bg-[linear-gradient(180deg,#e9dfc9_0%,#e9dfc9_72%,var(--color-humus-2)_72%)] p-3 ring-1 ring-ink/10">
+              <div className="overflow-hidden rounded-[2rem] bg-[#e9dfc9] p-3">
                 <HouseCutaway className="h-auto w-full" />
               </div>
               <figcaption className="mt-4">
                 <span className="sr-only">Sujets illustrés sur la maison : </span>
-                <ol className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-ink-soft sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
+                <ol className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-mycelium/85 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
                   {houseMarkerOrder.map((id, i) => (
                     <li key={id} className="flex items-center gap-2">
                       <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-chanterelle text-[0.7rem] font-bold text-humus" aria-hidden="true">
@@ -82,7 +86,7 @@ export default function HabitatPage() {
         </div>
       </section>
 
-      <section className="pb-20 sm:pb-28" aria-labelledby="call-title">
+      <section className="py-20 sm:py-28" aria-labelledby="call-title">
         <div className="container-site">
           <h2 id="call-title" className="reveal display-md">
             Comment se passe l&apos;appel
@@ -90,16 +94,25 @@ export default function HabitatPage() {
           <div className="mt-10">
             <Steps steps={steps} tone="var(--color-rust)" />
           </div>
-          <div className="reveal mt-12 rounded-[1.75rem] bg-paper-deep p-6 sm:p-8">
-            <h3 className="font-display text-xl">Pour gagner du temps, préparez si possible</h3>
-            <ul className="mt-4 grid gap-2 text-ink-soft sm:grid-cols-2">
-              <li>· l&apos;année de construction, même approximative ;</li>
-              <li>· le type de murs (pierre, parpaing, brique, bois) ;</li>
-              <li>· le mode de chauffage et d&apos;eau chaude ;</li>
-              <li>· vos dernières factures d&apos;énergie ;</li>
-              <li>· les travaux déjà faits (fenêtres, isolation, VMC) ;</li>
-              <li>· une ou deux photos des endroits qui posent question.</li>
-            </ul>
+        </div>
+      </section>
+
+      <section className="pb-20 sm:pb-28" aria-labelledby="solar-advice-title">
+        <div className="container-site">
+          <div className="reveal grid items-center gap-8 rounded-[2rem] bg-paper-deep p-7 sm:p-10 md:grid-cols-[minmax(0,12rem)_1fr]">
+            <ServiceArt kind="solaire" className="h-32 w-auto" />
+            <div>
+              <h2 id="solar-advice-title" className="font-display text-3xl leading-tight">
+                Panneaux solaires : <span className="wonk text-rust">conseil dès maintenant</span>
+              </h2>
+              <p className="mt-3 max-w-2xl text-ink-soft">
+                Une offre reçue, un démarchage, un devis à comparer ? Je vous aide à vérifier qu&apos;il correspond à
+                votre maison et à votre consommation, pour éviter les arnaques.{" "}
+                <Link href="/panneaux-solaires" className="font-semibold text-rust-deep link-quiet">
+                  Kits solaires prêts à brancher
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -112,18 +125,16 @@ export default function HabitatPage() {
         <div className="container-site grid items-center gap-12 lg:grid-cols-12">
           <div className="lg:col-span-6">
             <h2 id="old-title" className="reveal display-lg">
-              Les maisons anciennes <span className="wonk text-moss">ont leur logique</span>
+              Les maisons anciennes <span className="wonk text-moss">en pierre</span>
             </h2>
             <div className="reveal mt-6 space-y-4 text-ink-soft">
               <p>
-                Longères en granit, maisons de bourg en schiste, murs épais montés à la chaux : une maison ancienne
-                fonctionne autrement qu&apos;une construction récente. Ses murs absorbent l&apos;humidité et la rendent à
-                l&apos;air, comme un sol de forêt.
+                Une longère en granit ou une maison en schiste ne fonctionne pas comme une maison récente : ses murs
+                absorbent l&apos;humidité et la rendent à l&apos;air.
               </p>
               <p>
-                Un enduit ciment, une peinture étanche ou un isolant mal choisi peuvent bloquer cet échange et faire
-                apparaître des problèmes qui n&apos;existaient pas. Avant de changer quelque chose, mieux vaut comprendre
-                comment la maison respire.
+                Un enduit ciment, une peinture étanche ou un isolant mal choisi peuvent bloquer cet échange. Mieux vaut en
+                parler avant de faire des travaux.
               </p>
             </div>
           </div>
@@ -136,7 +147,7 @@ export default function HabitatPage() {
       </section>
 
       <FaqList faq={service.faq} />
-      <ContactBand title="Une question sur votre maison ?" accent="Appelez, c'est offert." text="30 minutes au téléphone pour y voir clair, sans engagement. Si je ne décroche pas, laissez un message avec vos disponibilités." />
+      <ContactBand title="Une question sur votre maison ?" accent="Appelez, c'est gratuit." text="30 minutes au téléphone, sans engagement. Si je ne décroche pas, laissez un message." />
       <JsonLd data={serviceSchema(service)} />
     </>
   );

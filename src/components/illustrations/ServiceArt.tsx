@@ -142,17 +142,9 @@ function Branch() {
 }
 
 function House() {
-  const rand = rng(9);
-  const threads: string[] = [];
-  for (let i = 0; i < 9; i++) {
-    const x0 = 30 + rand() * 140;
-    const y0 = 128 + rand() * 6;
-    threads.push(`M${r1(x0)} ${r1(y0)} q${r1((rand() - 0.5) * 30)} ${r1(8 + rand() * 6)} ${r1((rand() - 0.5) * 50)} ${r1(14 + rand() * 12)}`);
-  }
   return (
     <>
-      <path d="M0 122 H200 V160 H0Z" fill="var(--color-humus-2)" />
-      <path d={threads.join(" ")} stroke="var(--color-chanterelle)" strokeWidth="1" fill="none" opacity=".75" />
+      <path d="M10 122 H190" stroke="var(--color-moss)" strokeWidth="4" strokeLinecap="round" />
       <path d="M46 122 V64 H154 V122Z" fill="var(--color-paper-warm)" stroke="var(--color-ink)" strokeWidth="2.2" />
       <path d="M36 66 L100 22 L164 66Z" fill="#4e5a62" />
       <path d="M50 56 L100 22 L150 56" fill="none" stroke="#6b7880" strokeWidth="1" />

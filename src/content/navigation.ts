@@ -9,8 +9,6 @@ export const serviceNav = services.map((s) => ({
 }));
 
 export const mainNav = [
-  { href: "/realisations", label: "Réalisations" },
+  { href: "/terrasses-pergolas-carports#photos", label: "Photos" },
   { href: "/zone-intervention", label: "Zone d'intervention" },
-  { href: "/cesu-credit-impot", label: "CESU" },
-  { href: "/contact", label: "Contact" },
 ];

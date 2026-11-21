@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Photo } from "@/content/projects";
+import type { Photo } from "@/content/photos";
 import { ArrowRight, CloseIcon } from "@/components/ui/Icons";
 
 export function Gallery({ photos, title }: { photos: Photo[]; title: string }) {
@@ -42,7 +42,6 @@ export function Gallery({ photos, title }: { photos: Photo[]; title: string }) {
       <ul className="columns-1 gap-5 sm:columns-2 lg:columns-3">
         {photos.map((p, i) => (
           <li key={p.src.src} className="mb-5 break-inside-avoid">
-            <figure>
               <button
                 type="button"
                 onClick={(e) => open(i, e.currentTarget)}
@@ -58,8 +57,6 @@ export function Gallery({ photos, title }: { photos: Photo[]; title: string }) {
                   loading={i < 2 ? "eager" : "lazy"}
                 />
               </button>
-              {p.caption && <figcaption className="mt-2.5 text-sm text-ink-mute">{p.caption}</figcaption>}
-            </figure>
           </li>
         ))}
       </ul>
@@ -79,7 +76,6 @@ export function Gallery({ photos, title }: { photos: Photo[]; title: string }) {
               <span className="tabular-nums text-spore">
                 {index + 1} / {photos.length}
               </span>
-              {current.caption && <span className="ml-3">{current.caption}</span>}
             </p>
             <div className="flex shrink-0 gap-2">
               <button type="button" onClick={() => step(-1)} className="flex h-11 w-11 items-center justify-center rounded-full bg-mycelium/10 hover:bg-mycelium/20" aria-label="Photo précédente">

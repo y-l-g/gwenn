@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s · Services Jardin Joannic",
   },
   description:
-    "Gwenn Joannic, jardinier et constructeur bois à Moréac : taille de haies, tonte, désherbage, bois de chauffage, terrasses, pergolas, carports, élagage léger et conseil habitat gratuit. Locminé, Pontivy, Baud, Vannes, Auray, Ploërmel. CESU accepté.",
+    "Gwenn Joannic, jardinier et constructeur bois à Moréac : taille de haies, tonte, désherbage, bois de chauffage, élagage léger, terrasses, pergolas, carports et conseil habitat gratuit. Locminé, Pontivy, Baud, Vannes, Auray, Ploërmel. CESU accepté.",
   applicationName: business.name,
   authors: [{ name: business.owner }],
   creator: business.owner,

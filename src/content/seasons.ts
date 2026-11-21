@@ -9,7 +9,7 @@ export type Level = 0 | 1 | 2 | "n";
 
 export type SeasonRow = {
   label: string;
-  tone: "moss" | "beech" | "fern" | "chanterelle" | "chestnut";
+  tone: "moss" | "beech" | "fern" | "chestnut";
   levels: Level[];
   note: string;
 };
@@ -50,11 +50,5 @@ export const seasonRows: SeasonRow[] = [
     tone: "beech",
     levels: [0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 1, 0],
     note: "Par temps sec, du printemps à l'automne.",
-  },
-  {
-    label: "Conseil habitat",
-    tone: "chanterelle",
-    levels: [2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2],
-    note: "Toute l'année, mais c'est en hiver qu'on sent le froid et l'humidité.",
   },
 ];

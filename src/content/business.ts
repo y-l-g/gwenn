@@ -12,7 +12,7 @@ export const business = {
   region: "Bretagne",
   country: "FR",
   geo: { lat: 47.9203, lng: -2.8186 },
-  radius: "environ 30 minutes autour de Moréac",
+  radius: "Moréac et le centre Morbihan",
   /**
    * Public URL of the site, used for canonical links, the sitemap and
    * structured data. Set NEXT_PUBLIC_SITE_URL once the domain is known.

@@ -38,7 +38,7 @@ export function localBusinessSchema() {
     "@id": businessId,
     name: business.name,
     description:
-      "Entretien de jardin, taille de haies, tonte, désherbage, bois de chauffage, terrasses, pergolas et carports en bois, élagage léger et conseil habitat autour de Moréac (Morbihan).",
+      "Entretien de jardin, taille de haies, tonte, désherbage, bois de chauffage, terrasses, pergolas et carports en bois, élagage léger et conseil habitat gratuit autour de Moréac (Morbihan).",
     url: business.url,
     telephone: business.phoneIntl,
     email: business.email,

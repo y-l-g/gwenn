@@ -37,7 +37,7 @@ export function ZoneMap({ className }: { className?: string }) {
     <svg viewBox={`0 0 ${MAP.width} ${MAP.height}`} className={`draw-on-view ${className ?? ""}`} role="img" aria-labelledby="map-title map-desc">
       <title id="map-title">Zone d&apos;intervention autour de Moréac</title>
       <desc id="map-desc">
-        Carte stylisée du centre Morbihan : Moréac au centre, reliée à Locminé, Pontivy, Baud, Vannes, Auray, Ploërmel et aux communes voisines, dans un rayon d&apos;environ 30 minutes.
+        Carte stylisée du centre Morbihan : Moréac au centre, reliée à Locminé, Pontivy, Baud, Vannes, Auray, Ploërmel et aux communes voisines.
       </desc>
       <defs>
         <radialGradient id="zone-glow">

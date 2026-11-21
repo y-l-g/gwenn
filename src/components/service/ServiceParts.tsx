@@ -17,7 +17,7 @@ type HeroProps = {
   ctaLabel?: string;
 };
 
-export function ServiceHero({ crumbs, title, lead, image, art, note, mailSubject, ctaLabel = "Demander un devis" }: HeroProps) {
+export function ServiceHero({ crumbs, title, lead, image, art, note, mailSubject, ctaLabel = "Envoyer un e-mail" }: HeroProps) {
   return (
     <section className="relative overflow-x-clip pb-16 pt-6 sm:pb-24 sm:pt-8">
       <div className="container-site">
@@ -82,7 +82,7 @@ const specimens = [
 /** Tasks presented as herbarium sheets. */
 export function TaskSheets({ tasks, offset = 0 }: { tasks: Task[]; offset?: number }) {
   return (
-    <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-[repeat(var(--cols),minmax(0,1fr))]" style={{ ["--cols" as string]: Math.min(tasks.length, 4) }}>
+    <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-[repeat(var(--cols),minmax(0,1fr))]" style={{ ["--cols" as string]: tasks.length === 4 ? 4 : 3 }}>
       {tasks.map((t, i) => (
         <li
           key={t.title}

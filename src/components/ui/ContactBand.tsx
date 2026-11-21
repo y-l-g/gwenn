@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { business } from "@/content/business";
 import { Apple, ChestnutBurr, OakLeaf } from "@/components/illustrations/Botanical";
 import { MailIcon, PhoneIcon } from "./Icons";
@@ -6,7 +5,7 @@ import { MailIcon, PhoneIcon } from "./Icons";
 export function ContactBand({
   title = "Parlons de votre jardin",
   accent = "ou de votre maison.",
-  text = "Un appel suffit pour fixer une visite ou poser une question. Si je suis sur un chantier, laissez un message : je vous rappelle.",
+  text = "Appelez pour fixer une visite ou poser une question. Si je ne décroche pas, laissez un message : je vous rappelle.",
 }: {
   title?: string;
   accent?: string;
@@ -33,13 +32,6 @@ export function ContactBand({
             <MailIcon /> {business.email}
           </a>
         </div>
-        <p className="mt-6 text-sm text-mycelium/70">
-          Vous préférez détailler votre demande ?{" "}
-          <Link href="/contact" className="font-semibold text-mycelium link-quiet">
-            Préparez votre message ici
-          </Link>
-          .
-        </p>
       </div>
     </section>
   );

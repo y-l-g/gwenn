@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { business } from "@/content/business";
 import { Cep, Chanterelle, Mycena } from "@/components/illustrations/Botanical";
 import { RootSystem } from "@/components/illustrations/Underground";
 
@@ -13,19 +14,18 @@ export default function NotFound() {
           <path d="M-80 9 H80" stroke="var(--color-moss)" strokeWidth="2" />
         </svg>
         <h1 className="mt-8 display-lg">
-          Cette page <span className="wonk text-rust">a pris racine ailleurs</span>
+          Page <span className="wonk text-rust">introuvable</span>
         </h1>
         <p className="lead mx-auto mt-6 max-w-[44ch] text-ink-soft">
-          L&apos;adresse a peut-être changé. Repartez de l&apos;accueil, ou appelez directement si vous cherchez un
-          renseignement.
+          Cette page n&apos;existe pas ou plus. Repartez de l&apos;accueil, ou appelez-moi.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="/" className="btn">
             Retour à l&apos;accueil
           </Link>
-          <Link href="/contact" className="btn btn-ghost">
-            Contact
-          </Link>
+          <a href={business.phoneHref} className="btn btn-ghost">
+            {business.phone}
+          </a>
         </div>
       </div>
       <RootSystem className="mx-auto mt-6 w-[700px] max-w-none opacity-50" width={700} height={260} seed={41} />

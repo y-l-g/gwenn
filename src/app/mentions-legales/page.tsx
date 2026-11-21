@@ -43,8 +43,7 @@ export default function LegalPage() {
           <p>{HOST}</p>
           <h2>Données personnelles</h2>
           <p>
-            Ce site ne dépose aucun cookie de suivi et n&apos;utilise pas d&apos;outil de mesure d&apos;audience. Le
-            formulaire de contact ne transmet rien au site : il prépare un e-mail dans votre propre messagerie. Les
+            Ce site ne dépose aucun cookie de suivi et n&apos;utilise pas d&apos;outil de mesure d&apos;audience. Les
             informations que vous envoyez par e-mail ou par téléphone servent uniquement à répondre à votre demande et ne
             sont jamais cédées à des tiers.
           </p>

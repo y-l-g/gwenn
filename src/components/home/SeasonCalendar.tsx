@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import Link from "next/link";
 import { months, monthsLong, seasonRows, type Level } from "@/content/seasons";
 
 const toneColor: Record<string, string> = {
@@ -8,7 +9,6 @@ const toneColor: Record<string, string> = {
   fern: "var(--color-fern)",
   beech: "var(--color-beech)",
   chestnut: "var(--color-chestnut)",
-  chanterelle: "var(--color-chanterelle)",
 };
 
 const levelLabel = (l: Level) => (l === 2 ? "idéal" : l === 1 ? "possible" : l === "n" ? "à éviter, nidification" : "rarement");
@@ -45,24 +45,18 @@ export function SeasonCalendar() {
       <div className="container-site grid gap-12 lg:grid-cols-12">
         <div className="min-w-0 lg:col-span-4">
           <h2 id="calendar-title" className="reveal display-lg">
-            Le bon geste <span className="wonk text-rust">au bon mois</span>
+            Le calendrier <span className="wonk text-rust">du jardin</span>
           </h2>
           <p className="reveal mt-6 text-ink-soft">
-            Un jardin se travaille avec les saisons. Ce calendrier vous aide à anticiper : appelez un peu avant la
-            période idéale, les plannings se remplissent vite au printemps et à l&apos;automne.
+            Les meilleures périodes pour chaque travail. Au printemps et à l&apos;automne, appelez un peu à l&apos;avance.
           </p>
-          {now !== null && (
-            <p className="reveal mt-6 rounded-2xl bg-paper-deep p-5 text-[0.98rem]">
-              <span className="font-display text-lg wonk text-moss">En {monthsLong[now]}</span>
-              <br />
-              {seasonRows
-                .filter((r) => r.levels[now] === 2)
-                .map((r) => r.label.toLowerCase())
-                .join(", ")
-                .replace(/^./, (c) => c.toUpperCase()) || "Préparez la saison suivante"}
-              .
-            </p>
-          )}
+          <p className="reveal mt-6 rounded-2xl bg-humus p-5 text-[0.98rem] text-mycelium">
+            <Link href="/conseil-habitat" className="font-display text-lg text-chanterelle no-underline hover:underline">
+              Conseil habitat
+            </Link>
+            <br />
+            Disponible toute l&apos;année.
+          </p>
         </div>
 
         <div className="reveal min-w-0 lg:col-span-8">
