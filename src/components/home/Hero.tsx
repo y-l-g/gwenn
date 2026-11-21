@@ -90,7 +90,7 @@ export function Hero() {
         </figure>
       </div>
 
-      <MeadowEdge className="mt-8 block h-[170px] w-full sm:mt-12 sm:h-[210px] lg:h-[260px]" />
+      <MeadowEdge className="mt-2 block h-[220px] w-full sm:mt-4 sm:h-[280px] lg:h-[350px]" />
     </section>
   );
 }

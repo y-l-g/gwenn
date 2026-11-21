@@ -1,4 +1,4 @@
-import { fibrousRoots, type Strand, grass, hypha, hyphalFan, roots, rng, serratedLeaf, smoothPath, taproot, tuft } from "@/lib/organic";
+import { fibrousRoots, grass, hypha, hyphalFan, roots, rng, rootMass, serratedLeaf, smoothPath, taproot, tuft } from "@/lib/organic";
 import type { CSSProperties } from "react";
 import { BeechLeaf, Cep, Chanterelle, Mycena, OakLeaf } from "./Botanical";
 
@@ -162,11 +162,11 @@ function Dandelion({ x, y, seed, flower = "bloom" }: { x: number; y: number; see
         <path key={i} d={serratedLeaf(l.l, 9, 7)} transform={`translate(${x} ${y}) rotate(${l.a})`} fill={i % 2 ? "var(--color-fern)" : "var(--color-moss)"} />
       ))}
       {flower === "bloom" && (
-        <g transform={`translate(${top.x} ${top.y})`}>
+        <g transform={`translate(${top.x} ${top.y}) scale(1.3)`}>
           {Array.from({ length: 14 }, (_, i) => (
-            <ellipse key={i} cx="0" cy="-5.5" rx="1.5" ry="4.6" transform={`rotate(${i * 25.7})`} fill="var(--color-chanterelle)" />
+            <ellipse key={i} cx="0" cy="-5.5" rx="1.5" ry="4.6" transform={`rotate(${i * 25.7})`} fill="#f6c21c" />
           ))}
-          <circle r="3.2" fill="var(--color-beech)" />
+          <circle r="3.2" fill="#e09a12" />
         </g>
       )}
       {flower === "clock" && (
@@ -223,83 +223,201 @@ function GrassStems({ edge, seed, count, width }: { edge: (x: number) => number;
   );
 }
 
-/** A small earthworm curled in the topsoil. */
-function Earthworm({ x, y, r = 0 }: { x: number; y: number; r?: number }) {
-  const body = "M0 0 C12 -8 26 -8 34 0 S54 12 64 4 S78 -10 88 -4";
+const WORM = {
+  a: "M-88 0C-78 -6 -66 -6 -56 0S-34 6 -24 0S-6 -5 0 0",
+  b: "M-82 0C-72 5 -60 5 -50 0S-30 -6 -20 0S-5 4 0 0",
+};
+
+/** An earthworm body pointing right, head at the origin. Animated bodies wriggle. */
+function WormBody({ wriggle = false }: { wriggle?: boolean }) {
+  const anim = wriggle ? (
+    <animate attributeName="d" dur="1.8s" repeatCount="indefinite" values={`${WORM.a};${WORM.b};${WORM.a}`} calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" />
+  ) : null;
   return (
-    <g transform={`translate(${x} ${y}) rotate(${r})`}>
-      <path d={body} stroke="#b9786a" strokeWidth="5.5" strokeLinecap="round" fill="none" />
-      <path d={body} stroke="#d39a8a" strokeWidth="2" strokeLinecap="round" fill="none" strokeDasharray="1.2 4.2" />
-      <path d="M50 2.5 l8 4" stroke="#a5604f" strokeWidth="6" strokeLinecap="round" />
+    <g strokeLinecap="round" fill="none">
+      <path d={WORM.a} stroke="#b9786a" strokeWidth="5.5">
+        {anim}
+      </path>
+      <path d={WORM.a} stroke="#d39a8a" strokeWidth="2" strokeDasharray="1.2 4.2">
+        {anim}
+      </path>
+      <path d={WORM.a} stroke="#a5604f" strokeWidth="6.5" strokeDasharray="0 22 8 100">
+        {anim}
+      </path>
+    </g>
+  );
+}
+
+type FlowerKind = "dandelion" | "clock" | "leaves" | "poppy" | "cornflower" | "daisy" | "clover" | "buttercup";
+
+/** A stem rising from (x, y) with a slight lean; returns its path and tip. */
+function stem(x: number, y: number, h: number, lean: number) {
+  const tip = { x: x + lean, y: y - h };
+  return { d: `M${x} ${y} Q${(x + lean * 0.15).toFixed(1)} ${(y - h * 0.55).toFixed(1)} ${tip.x.toFixed(1)} ${tip.y.toFixed(1)}`, tip };
+}
+
+function StemLeaves({ x, y, h, seed }: { x: number; y: number; h: number; seed: number }) {
+  const r = rng(seed);
+  return (
+    <>
+      {[0.25, 0.5].map((t, i) => (
+        <path
+          key={i}
+          d={serratedLeaf(10 + r() * 8, 3.2, 3)}
+          transform={`translate(${x} ${(y - h * t).toFixed(1)}) rotate(${i ? -40 - r() * 30 : -140 + r() * 30})`}
+          fill="var(--color-fern)"
+        />
+      ))}
+    </>
+  );
+}
+
+function Wildflower({ x, y, seed, kind }: { x: number; y: number; seed: number; kind: Exclude<FlowerKind, "dandelion" | "clock" | "leaves"> }) {
+  const r = rng(seed);
+  if (kind === "clover") {
+    const tip = { x: x + (r() - 0.5) * 6, y: y - 24 - r() * 8 };
+    return (
+      <g>
+        <path d={`M${x} ${y} Q${x} ${y - 12} ${tip.x} ${tip.y}`} stroke="var(--color-fern)" strokeWidth="1.3" fill="none" />
+        {[-1, 1].map((s) => (
+          <g key={s} transform={`translate(${x + s * 7} ${y - 8})`} fill="var(--color-moss)">
+            {[0, 120, 240].map((a) => (
+              <ellipse key={a} cx="0" cy="-3.4" rx="2.6" ry="3.4" transform={`rotate(${a})`} />
+            ))}
+          </g>
+        ))}
+        <g transform={`translate(${tip.x.toFixed(1)} ${tip.y.toFixed(1)}) scale(1.25)`}>
+          {Array.from({ length: 16 }, (_, i) => {
+            const row = Math.floor(i / 6);
+            const a = -80 + (i % 6) * 32 + row * 14;
+            return <ellipse key={i} cx="0" cy={-3 - row * 1.5} rx="1.4" ry="3.8" transform={`rotate(${a})`} fill={i % 3 ? "#c4679a" : "#e49bbf"} />;
+          })}
+          <circle r="3" fill="#a74b7d" />
+        </g>
+      </g>
+    );
+  }
+  const h = { poppy: 72, cornflower: 62, daisy: 40, buttercup: 58 }[kind] * (0.85 + r() * 0.3);
+  const s = stem(x, y, h, (r() - 0.5) * 18);
+  const t = s.tip;
+  return (
+    <g>
+      <path d={s.d} stroke="var(--color-fern)" strokeWidth={kind === "daisy" ? 1.1 : 1.4} fill="none" />
+      <StemLeaves x={x} y={y} h={h} seed={seed + 1} />
+      <g transform={`translate(${t.x.toFixed(1)} ${t.y.toFixed(1)}) rotate(${((r() - 0.5) * 30).toFixed(0)}) scale(1.35)`}>
+        {kind === "poppy" && (
+          <>
+            {[0, 90, 180, 270].map((a, i) => (
+              <ellipse key={a} cx="0" cy="-5" rx="6.8" ry="6" transform={`rotate(${a + 45})`} fill={i % 2 ? "#c9361f" : "#e04a2c"} />
+            ))}
+            <ellipse cx="0" cy="-1" rx="5.5" ry="4.5" fill="#e85a36" opacity=".7" />
+            <circle r="2.6" fill="#2b1d1a" />
+            {Array.from({ length: 8 }, (_, i) => (
+              <circle key={i} cx={Math.cos(i * 0.785) * 3.8} cy={Math.sin(i * 0.785) * 3.8} r=".7" fill="#2b1d1a" />
+            ))}
+          </>
+        )}
+        {kind === "cornflower" &&
+          Array.from({ length: 9 }, (_, i) => (
+            <path key={i} d="M0 0 L-1.6 -7 L-2.4 -9 L-0.8 -8.4 L0 -10 L0.8 -8.4 L2.4 -9 L1.6 -7Z" transform={`rotate(${i * 40})`} fill={i % 2 ? "#4f72c0" : "#3d5daa"} />
+          ))}
+        {kind === "cornflower" && <circle r="2.4" fill="#2c3a78" />}
+        {kind === "daisy" && (
+          <>
+            {Array.from({ length: 16 }, (_, i) => (
+              <ellipse key={i} cx="0" cy="-5" rx="1.4" ry="4.2" transform={`rotate(${i * 22.5})`} fill="#fffdf7" stroke="#d9cfb9" strokeWidth=".35" />
+            ))}
+            <circle r="2.8" fill="#f2b51f" />
+          </>
+        )}
+        {kind === "buttercup" && (
+          <>
+            {Array.from({ length: 5 }, (_, i) => (
+              <ellipse key={i} cx="0" cy="-4.2" rx="3.6" ry="4.4" transform={`rotate(${i * 72})`} fill={i % 2 ? "#f0bb12" : "#f7cd2a"} />
+            ))}
+            <circle r="2" fill="#d08d14" />
+          </>
+        )}
+      </g>
     </g>
   );
 }
 
 /**
- * Meadow edge under the home hero: dense layered grass, a few dandelions and
- * seed heads, and below the soil line the roots of those same plants, which
- * fade softly into the page.
+ * Meadow edge under the home hero: dense layered grass and wildflowers, and
+ * below the soil line a fine, dense mesh of roots that fades into the page.
+ * An earthworm slowly crosses the topsoil from left to right.
  */
 export function MeadowEdge({ className, seed = 3 }: { className?: string; seed?: number }) {
   const W = 1600;
-  const H = 300;
-  const edge = (x: number) => 64 + 6 * Math.sin(x / 230 + seed) + 3 * Math.sin(x / 71 + 0.7);
+  const H = 400;
+  const edge = (x: number) => 126 + 6 * Math.sin(x / 230 + seed) + 3 * Math.sin(x / 71 + 0.7);
   const rand = rng(seed * 11);
   // Irregular clumps: some big tussocks, some small tufts.
   const clumps: { x: number; size: number }[] = [];
   for (let x = 30 + rand() * 40; x < W; x += 70 + rand() * 120) clumps.push({ x, size: 0.6 + rand() * 0.8 });
   const clumpX = clumps.map((c) => c.x);
-  const dandelions = [
-    { x: 352, flower: "bloom" as const },
-    { x: 731, flower: "clock" as const },
-    { x: 1046, flower: "bloom" as const },
-    { x: 1268, flower: "bloom" as const },
-    { x: 1452, flower: "none" as const },
-    { x: 168, flower: "none" as const },
+
+  const flowers: { x: number; kind: FlowerKind }[] = [
+    { x: 92, kind: "daisy" },
+    { x: 168, kind: "leaves" },
+    { x: 258, kind: "poppy" },
+    { x: 352, kind: "dandelion" },
+    { x: 446, kind: "cornflower" },
+    { x: 528, kind: "clover" },
+    { x: 606, kind: "daisy" },
+    { x: 628, kind: "daisy" },
+    { x: 731, kind: "clock" },
+    { x: 822, kind: "poppy" },
+    { x: 905, kind: "buttercup" },
+    { x: 978, kind: "cornflower" },
+    { x: 1046, kind: "dandelion" },
+    { x: 1132, kind: "daisy" },
+    { x: 1204, kind: "clover" },
+    { x: 1270, kind: "poppy" },
+    { x: 1362, kind: "cornflower" },
+    { x: 1452, kind: "leaves" },
+    { x: 1534, kind: "buttercup" },
   ];
 
-  // A fine, continuous mat of rootlets just under the surface...
-  const mat: (Strand & { delay: number })[] = [];
-  for (let x = 6; x < W; x += 10 + rand() * 10) {
-    fibrousRoots({ x, y: edge(x) + 3, seed: seed * 400 + Math.round(x), count: 2 + Math.floor(rand() * 2), length: 18 + rand() * 30, spread: 55, width: 0.9 }).forEach((st) =>
-      mat.push({ ...st, delay: x * 0.5 }),
-    );
-  }
-  // ...deeper fibrous fans under each clump...
-  const fibres = clumps.flatMap((c, i) =>
-    fibrousRoots({
-      x: c.x,
-      y: edge(c.x) + 4,
-      seed: seed * 50 + i,
-      count: Math.round(6 + c.size * 7),
-      length: 60 + c.size * 90 + rand() * 40,
-      spread: 50 + rand() * 25,
-      width: 1 + c.size * 0.7,
-    }).map((st) => ({ ...st, delay: 200 + i * 60 })),
-  );
-  // ...and a taproot under every dandelion.
-  const taps = dandelions.map((d, i) => ({ ...taproot({ x: d.x, y: edge(d.x) + 2, length: 110 + (i % 3) * 35, width: 8 + (i % 2) * 3, seed: seed * 90 + i }), x: d.x }));
-
-  // The earthworm lives in the widest gap between root crowns, near the middle.
-  const allCrowns = [...clumpX, ...dandelions.map((d) => d.x)].sort((a, b) => a - b);
-  let wormX = W / 2;
-  let best = 0;
-  allCrowns.slice(1).forEach((x, i) => {
-    const mid = (x + allCrowns[i]) / 2;
-    const gap = x - allCrowns[i];
-    if (mid > 420 && mid < 1180 && gap > best) {
-      best = gap;
-      wormX = mid;
-    }
-  });
+  // A handful of root masses, reused (mirrored and scaled) under every plant.
+  const big = [0, 1, 2].map((k) => rootMass({ seed: seed * 100 + k, count: 90, depth: 160, spread: 105, leaders: 5 }));
+  const small = [0, 1, 2].map((k) => rootMass({ seed: seed * 200 + k, count: 30, depth: 90, spread: 110, leaders: 2 }));
+  const id = `meadow-${seed}`;
+  const placements = [
+    // a continuous mat of shallow rootlets
+    ...Array.from({ length: 40 }, (_, i) => {
+      const x = 10 + i * 40 + rand() * 20;
+      return { ref: `${id}-s${i % 3}`, x, sx: (i % 2 ? -1 : 1) * (0.45 + rand() * 0.2), sy: 0.45 + rand() * 0.2 };
+    }),
+    ...clumps.map((c, i) => ({ ref: `${id}-s${i % 3}`, x: c.x, sx: (i % 2 ? -1 : 1) * (0.7 + c.size * 0.4), sy: 0.8 + c.size * 0.35 })),
+    ...flowers.map((f, i) => ({
+      ref: `${id}-b${i % 3}`,
+      x: f.x,
+      sx: (i % 2 ? -1 : 1) * (f.kind === "clover" || f.kind === "daisy" ? 0.6 : 0.85 + (i % 3) * 0.1),
+      sy: f.kind === "clover" || f.kind === "daisy" ? 0.6 : 0.85 + ((i + 1) % 3) * 0.12,
+    })),
+  ];
+  // Dandelions keep a slender taproot.
+  const taps = flowers
+    .filter((f) => f.kind === "dandelion" || f.kind === "clock" || f.kind === "leaves")
+    .map((f, i) => taproot({ x: f.x, y: edge(f.x) + 2, length: 120 + (i % 3) * 30, width: 3.4 + (i % 2), seed: seed * 90 + i }));
 
   // Fine fungal threads between neighbouring root zones.
-  const crowns = [...clumpX.filter((_, i) => i % 2 === 0), ...dandelions.map((d) => d.x)].sort((a, b) => a - b);
+  const crowns = flowers.map((f) => f.x).filter((_, i) => i % 2 === 0);
   const threads = crowns.slice(1).flatMap((x, i) => {
     const a = crowns[i];
-    const h = hypha({ x: a + 14, y: edge(a) + 46 + rand() * 40 }, { x: x - 14, y: edge(x) + 46 + rand() * 40 }, seed * 7 + i, 0.16, 2);
+    const h = hypha({ x: a + 14, y: edge(a) + 50 + rand() * 50 }, { x: x - 14, y: edge(x) + 50 + rand() * 50 }, seed * 7 + i, 0.16, 2);
     return [h.main, ...h.side];
   });
+
+  // The earthworm's tunnel: a gentle wave through the topsoil, from beyond the left edge to beyond the right.
+  const tunnel = smoothPath(
+    Array.from({ length: 13 }, (_, i) => {
+      const x = -160 + i * 160;
+      return { x, y: edge(Math.max(0, Math.min(W, x))) + 62 + (i % 2 ? 26 : 0) + rand() * 14 };
+    }),
+  );
 
   const pebbles = Array.from({ length: 26 }, () => {
     const x = rand() * W;
@@ -324,17 +442,28 @@ export function MeadowEdge({ className, seed = 3 }: { className?: string; seed?:
     return `M${top.join(" L")} L${bottom.reverse().join(" L")}Z`;
   })();
 
-  const id = `meadow-${seed}`;
+  const mass = (m: { lead: string; fine: string }, key: string, leadWidth: number) => (
+    <g id={key} key={key} fill="none" stroke="var(--color-chestnut)" strokeLinecap="round">
+      <path d={m.fine} strokeWidth=".45" opacity=".42" />
+      <path d={m.lead} strokeWidth={leadWidth} opacity=".55" />
+    </g>
+  );
+
   return (
     <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMin slice" className={`draw-on-load ${className ?? ""}`} aria-hidden="true">
       <defs>
         <linearGradient id={`${id}-fade`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0.3" stopColor="#fff" />
-          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+          <stop offset="0.45" stopColor="#fff" />
+          <stop offset="0.97" stopColor="#fff" stopOpacity="0" />
         </linearGradient>
         <mask id={`${id}-mask`} maskUnits="userSpaceOnUse" x="0" y="0" width={W} height={H}>
           <rect width={W} height={H} fill={`url(#${id}-fade)`} />
         </mask>
+        <mask id={`${id}-grow`} maskUnits="userSpaceOnUse" x="0" y="0" width={W} height={H}>
+          <rect className="grow-down" y="108" width={W} height={H - 108} fill="#fff" />
+        </mask>
+        {big.map((m, k) => mass(m, `${id}-b${k}`, 1))}
+        {small.map((m, k) => mass(m, `${id}-s${k}`, 0.8))}
       </defs>
 
       {/* topsoil, barely tinted */}
@@ -344,42 +473,49 @@ export function MeadowEdge({ className, seed = 3 }: { className?: string; seed?:
       ))}
 
       <g mask={`url(#${id}-mask)`}>
-        <g fill="none" stroke="var(--color-moss)" strokeLinecap="round">
-          {threads.map((d, i) => (
-            <path key={i} d={d} pathLength={1} className="draw-path" strokeWidth={i % 3 ? 0.6 : 0.9} opacity=".4" style={{ "--d": 1300 + i * 30 } as CSSProperties} />
+        <g mask={`url(#${id}-grow)`}>
+          {placements.map((p, i) => (
+            <use key={i} href={`#${p.ref}`} transform={`translate(${p.x.toFixed(1)} ${(edge(p.x) + 3).toFixed(1)}) scale(${p.sx.toFixed(2)} ${p.sy.toFixed(2)})`} />
+          ))}
+          {taps.map((t, i) => (
+            <g key={i}>
+              <path d={t.body} fill="#8a5a34" opacity=".55" />
+              <path d={t.side.map((s) => s.d).join(" ")} fill="none" stroke="var(--color-chestnut)" strokeWidth=".6" opacity=".45" />
+            </g>
           ))}
         </g>
-        <g fill="none" stroke="var(--color-chestnut)" strokeLinecap="round">
-          {fibres
-            .filter((f) => !f.depth)
-            .map((f, i) => (
-              <path key={i} d={f.d} pathLength={1} className="draw-path" strokeWidth={f.width} opacity=".55" style={{ "--d": f.delay } as CSSProperties} />
-            ))}
-          {taps.flatMap((t, i) =>
-            t.side.map((sd, j) => (
-              <path key={`${i}-${j}`} d={sd.d} pathLength={1} className="draw-path" strokeWidth={sd.width} opacity=".45" style={{ "--d": 600 + j * 60 } as CSSProperties} />
-            )),
-          )}
+        <g fill="none" stroke="var(--color-moss)" strokeLinecap="round">
+          {threads.map((d, i) => (
+            <path key={i} d={d} pathLength={1} className="draw-path" strokeWidth={i % 3 ? 0.55 : 0.8} opacity=".4" style={{ "--d": 1600 + i * 30 } as CSSProperties} />
+          ))}
         </g>
-        {/* Rootlets and root hairs: merged into a few paths, faded in once the main roots have grown. */}
-        <g className="fade-in-late" fill="none" stroke="var(--color-chestnut)" strokeLinecap="round">
-          <path d={mat.filter((f) => !f.depth).map((f) => f.d).join(" ")} strokeWidth=".75" opacity=".3" />
-          <path d={[...mat, ...fibres].filter((f) => f.depth).map((f) => f.d).join(" ")} strokeWidth=".55" opacity=".26" />
-        </g>
-        {taps.map((t, i) => (
-          <path key={i} d={t.body} fill="#8a5a34" opacity=".8" />
-        ))}
       </g>
 
-      <Earthworm x={wormX - 44} y={edge(wormX) + 92} r={-6} />
+      {/* The earthworm crosses from left to right; still, mid-field, for reduced motion. */}
+      <g className="worm-moving">
+        <g>
+          <WormBody wriggle />
+          <animateMotion dur="52s" repeatCount="indefinite" rotate="auto" path={tunnel} />
+        </g>
+      </g>
+      <g className="worm-still" transform={`translate(${W / 2 + 40} ${edge(W / 2) + 84}) rotate(-6)`}>
+        <WormBody />
+      </g>
 
       {/* the meadow */}
       <GrassStems edge={edge} seed={seed + 7} count={34} width={W} />
       <path d={blades(edge, { from: 0, to: W, count: 900, height: 34, seed: seed + 1, clumps: clumpX })} fill="var(--color-fern)" opacity=".75" />
-      {dandelions.map((d, i) => (
-        <Dandelion key={i} x={d.x} y={edge(d.x) + 1} seed={seed * 3 + i} flower={d.flower} />
-      ))}
+      {flowers.map((f, i) =>
+        f.kind === "dandelion" || f.kind === "clock" || f.kind === "leaves" ? (
+          <Dandelion key={i} x={f.x} y={edge(f.x) + 1} seed={seed * 3 + i} flower={f.kind === "dandelion" ? "bloom" : f.kind === "clock" ? "clock" : "none"} />
+        ) : null,
+      )}
       <path d={blades(edge, { from: 0, to: W, count: 760, height: 26, seed: seed + 2, clumps: clumpX })} fill="var(--color-moss)" />
+      {flowers.map((f, i) =>
+        f.kind === "dandelion" || f.kind === "clock" || f.kind === "leaves" ? null : (
+          <Wildflower key={i} x={f.x} y={edge(f.x) + 1} seed={seed * 13 + i} kind={f.kind} />
+        ),
+      )}
       <path d={blades(edge, { from: 0, to: W, count: 420, height: 15, seed: seed + 3 })} fill="var(--color-moss-deep)" />
       {leaves.map((l, i) =>
         l.oak ? (
@@ -391,6 +527,7 @@ export function MeadowEdge({ className, seed = 3 }: { className?: string; seed?:
     </svg>
   );
 }
+
 
 /** Horizon line with grass, used where a page goes "underground". */
 export function SoilHorizon({

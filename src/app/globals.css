@@ -324,6 +324,25 @@ a {
   }
 }
 
+@keyframes grow-down {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+.worm-still {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .worm-moving {
+    display: none;
+  }
+  .worm-still {
+    display: inline;
+  }
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -356,6 +375,12 @@ a {
     stroke-dashoffset: 1;
     animation: draw 1.6s var(--ease-organic) forwards;
     animation-delay: calc(var(--d, 0) * 1ms + 300ms);
+  }
+
+  .grow-down {
+    transform-box: fill-box;
+    transform-origin: top;
+    animation: grow-down 3.2s var(--ease-organic) 0.5s both;
   }
 
   .fade-in-late {

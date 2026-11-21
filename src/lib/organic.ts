@@ -356,3 +356,77 @@ export function hyphalFan({
   }
   return { strands: out, tips };
 }
+
+/** Compact smooth path through integer-rounded points (quadratic midpoints), for very many fine strands. */
+function finePath(pts: Pt[]) {
+  const p = pts.map((q) => ({ x: Math.round(q.x), y: Math.round(q.y) }));
+  let d = `M${p[0].x} ${p[0].y}`;
+  for (let i = 1; i < p.length - 1; i++) {
+    d += `Q${p[i].x} ${p[i].y} ${Math.round((p[i].x + p[i + 1].x) / 2)} ${Math.round((p[i].y + p[i + 1].y) / 2)}`;
+  }
+  const last = p[p.length - 1];
+  return `${d}L${last.x} ${last.y}`;
+}
+
+/**
+ * A dense, hair-fine root mass around a crown at (0, 0), like the fibrous
+ * root ball of a meadow plant: many thin wandering strands, each with short
+ * laterals. Returns a few thicker leading roots and one merged path of fine ones.
+ */
+export function rootMass({
+  seed,
+  count = 60,
+  depth = 150,
+  spread = 80,
+  leaders = 5,
+}: {
+  seed: number;
+  count?: number;
+  depth?: number;
+  spread?: number;
+  leaders?: number;
+}) {
+  const rand = rng(seed);
+  const fine: string[] = [];
+  const lead: string[] = [];
+  const strand = (a0: number, len: number, wobble: number, out: string[], laterals: number) => {
+    let a = a0;
+    let x = (rand() - 0.5) * 6;
+    let y = rand() * 3;
+    const steps = 7;
+    const pts: Pt[] = [{ x, y }];
+    for (let s = 0; s < steps; s++) {
+      a += (90 - a) * 0.09 + (rand() - 0.5) * wobble;
+      x += Math.cos((a * Math.PI) / 180) * (len / steps);
+      y += Math.sin((a * Math.PI) / 180) * (len / steps);
+      pts.push({ x, y });
+    }
+    out.push(finePath(pts));
+    for (let k = 0; k < laterals; k++) {
+      const base = pts[1 + Math.floor(rand() * (steps - 1))];
+      let la = a + (rand() > 0.5 ? 1 : -1) * (30 + rand() * 50);
+      let lx = base.x;
+      let ly = base.y;
+      const ll = len * (0.12 + rand() * 0.22);
+      const lp: Pt[] = [{ x: lx, y: ly }];
+      for (let s = 0; s < 3; s++) {
+        la += (rand() - 0.5) * 40 + (90 - la) * 0.15;
+        lx += Math.cos((la * Math.PI) / 180) * (ll / 3);
+        ly += Math.sin((la * Math.PI) / 180) * (ll / 3);
+        lp.push({ x: lx, y: ly });
+      }
+      fine.push(finePath(lp));
+    }
+  };
+  for (let i = 0; i < leaders; i++) {
+    strand(90 + (rand() - 0.5) * spread, depth * (0.7 + rand() * 0.35), 22, lead, 3);
+  }
+  for (let i = 0; i < count; i++) {
+    // Most strands fan out sideways first, then dive: an oval root ball.
+    const t = rand() * 2 - 1;
+    const a = 90 + t * spread * (0.5 + rand() * 0.6);
+    const len = depth * (0.3 + rand() * 0.75) * (1 - Math.abs(t) * 0.25);
+    strand(a, len, 46, fine, 2 + Math.floor(rand() * 3));
+  }
+  return { lead: lead.join(""), fine: fine.join("") };
+}
