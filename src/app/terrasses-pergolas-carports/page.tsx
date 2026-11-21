@@ -28,10 +28,10 @@ export default function ConstructionPage() {
   return (
     <>
       <ServiceHero
-        crumbs={[{ name: "Terrasses, pergolas, carports", path: service.path }]}
+        crumbs={[{ name: "Constructions légères en bois", path: service.path }]}
         title={
           <>
-            Terrasses, pergolas et carports <span className="wonk text-chestnut">en bois</span>
+            Constructions légères <span className="wonk text-chestnut">en bois</span>
           </>
         }
         lead={<p>Des constructions simples, solides et bien finies, autour de Moréac.</p>}

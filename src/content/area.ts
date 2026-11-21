@@ -42,14 +42,21 @@ export const communes = [
   "Saint-Thuriau",
 ].sort((a, b) => a.localeCompare(b, "fr"));
 
+/** Landmarks outside the zone, drawn on the map for orientation only. */
+export const landmarks: Town[] = [
+  { name: "Vannes", lat: 47.658, lng: -2.76, main: true },
+  { name: "Josselin", lat: 47.952, lng: -2.547 },
+  { name: "Pluvigner", lat: 47.776, lng: -3.012 },
+];
+
 export const RADIUS_KM = 20;
 
 export const mainTowns = towns.filter((t) => t.main);
 
 /* ---------- Map projection ---------- */
 
-// Framed on the 20 km zone; about 20 px per km on both axes.
-export const MAP = { width: 1000, height: 980, west: -3.15, east: -2.48, north: 48.14, south: 47.7 };
+// Framed from Pontivy down to the Gulf of Morbihan.
+export const MAP = { width: 1000, height: 940, west: -3.25, east: -2.3, north: 48.15, south: 47.55 };
 
 export function project(lat: number, lng: number) {
   const x = ((lng - MAP.west) / (MAP.east - MAP.west)) * MAP.width;

@@ -80,7 +80,7 @@ export const services: Service[] = [
   {
     key: "construction",
     path: "/terrasses-pergolas-carports",
-    name: "Terrasses, pergolas et carports en bois",
+    name: "Constructions légères en bois",
     short: "Constructions bois",
     summary: "Terrasses, pergolas, carports et petits ouvrages en bois, sur mesure.",
     keywords: ["Terrasses", "Pergolas", "Carports", "Sur mesure"],

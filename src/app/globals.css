@@ -296,6 +296,22 @@ a {
   }
 }
 
+@keyframes breeze {
+  0%,
+  100% {
+    transform: rotate(-1.5deg);
+  }
+  30% {
+    transform: rotate(3.2deg);
+  }
+  55% {
+    transform: rotate(0.6deg);
+  }
+  75% {
+    transform: rotate(2.4deg);
+  }
+}
+
 @keyframes drift {
   0% {
     transform: translate3d(0, -10vh, 0) rotate(0deg);
@@ -375,6 +391,12 @@ a {
     stroke-dashoffset: 1;
     animation: draw 1.6s var(--ease-organic) forwards;
     animation-delay: calc(var(--d, 0) * 1ms + 300ms);
+  }
+
+  .breeze {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: breeze var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
   }
 
   .grow-down {

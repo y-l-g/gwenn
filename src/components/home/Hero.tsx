@@ -86,7 +86,7 @@ export function Hero() {
             />
             <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-ink/10" />
           </div>
-          <OakTwig className="pointer-events-none absolute -left-10 -top-8 z-10 w-[58%] max-w-[300px] sm:-left-20 sm:-top-10" />
+          <OakTwig className="pointer-events-none absolute -left-10 -top-16 z-10 w-[58%] max-w-[300px] sm:-left-20 sm:-top-[5.5rem]" />
         </figure>
       </div>
 

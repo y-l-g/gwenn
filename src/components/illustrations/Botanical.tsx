@@ -213,7 +213,7 @@ export function Mycena({ seed = 5, ...p }: Place & { seed?: number }) {
 /** Autumn oak twig with leaves and acorns. viewBox suggested: 0 0 320 240 */
 export function OakTwig({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 320 240" className={className} aria-hidden="true">
+    <svg viewBox="0 -50 320 290" className={className} aria-hidden="true">
       <g className="sway" style={{ "--origin": "0% 50%", "--sway-dur": "9s" } as CSSProperties}>
         <path d="M-10 60 C40 70 90 92 140 110 C190 128 240 150 300 196" stroke="var(--color-chestnut)" strokeWidth="5" fill="none" strokeLinecap="round" />
         <path d="M120 103 C130 80 150 66 176 58 M200 136 C206 160 222 176 246 186" stroke="var(--color-chestnut)" strokeWidth="3" fill="none" strokeLinecap="round" />

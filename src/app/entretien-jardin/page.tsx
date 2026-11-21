@@ -62,7 +62,7 @@ export default function GardenPage() {
             <Link href="/terrasses-pergolas-carports" className="group flex items-center justify-between gap-6 rounded-[1.75rem] bg-paper-deep p-6 no-underline">
               <span>
                 <span className="block text-sm text-ink-mute">Aussi</span>
-                <span className="font-display text-2xl group-hover:underline">Terrasses, pergolas, carports</span>
+                <span className="font-display text-2xl group-hover:underline">Constructions légères en bois</span>
               </span>
               <ArrowRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
             </Link>
