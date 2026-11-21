@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/content/business";
 import { services } from "@/content/services";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: { path: string; priority: number; changeFrequency: "monthly" | "yearly" }[] = [
     { path: "/", priority: 1, changeFrequency: "monthly" },

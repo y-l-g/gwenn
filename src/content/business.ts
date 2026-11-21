@@ -18,6 +18,8 @@ export const business = {
    * structured data. Set NEXT_PUBLIC_SITE_URL once the domain is known.
    */
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.servicesjardinjoannic.fr").replace(/\/$/, ""),
+  /** Set NEXT_PUBLIC_NOINDEX=1 on a preview deployment to keep it out of search engines. */
+  indexable: process.env.NEXT_PUBLIC_NOINDEX !== "1",
 } as const;
 
 export function absoluteUrl(path = "/") {

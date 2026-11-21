@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
-  poweredByHeader: false,
+  // Plain static HTML in out/, hosted on GitHub Pages (no Node server).
+  output: "export",
   images: {
+    // No image server on a static host: photos are served as they are.
+    unoptimized: true,
     qualities: [70, 80],
     formats: ["image/avif", "image/webp"],
   },
@@ -15,22 +16,6 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
-  },
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
-          },
-        ],
-      },
-    ];
   },
 };
 

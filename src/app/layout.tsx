@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     siteName: business.name,
   },
-  robots: { index: true, follow: true },
+  robots: { index: business.indexable, follow: business.indexable },
   category: "Jardinage et petits travaux",
 };
 
