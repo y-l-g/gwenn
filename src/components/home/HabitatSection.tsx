@@ -38,11 +38,9 @@ export function HabitatSection({ headingLevel = 2 }: { headingLevel?: 2 | 3 }) {
   return (
     <section className="on-dark relative bg-humus pb-24 pt-10 text-mycelium sm:pb-32" aria-labelledby="habitat-title">
       <div className="container-site">
-        <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
-          <Heading id="habitat-title" className="reveal display-lg text-mycelium lg:col-span-7">
-            Dans une maison, <span className="wonk text-chanterelle">tout est relié</span>
-          </Heading>
-        </div>
+        <Heading id="habitat-title" className="reveal display-lg text-mycelium">
+          Dans une maison, <span className="wonk text-chanterelle">tout est relié</span>
+        </Heading>
         <div className="mt-12">
           <HabitatNetwork topics={habitatTopics} edges={edges} tufts={tufts} />
         </div>
