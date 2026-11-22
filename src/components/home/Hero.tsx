@@ -44,7 +44,7 @@ export function Hero() {
                 <Link href="/conseil-habitat" className="font-semibold text-ink link-quiet">
                   Conseil habitat
                 </Link>{" "}
-                gratuit, toute l&apos;année
+                gratuit ou payant, toute l&apos;année
               </span>
             </li>
             <li className="flex gap-3">
