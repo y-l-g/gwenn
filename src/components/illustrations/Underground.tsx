@@ -423,9 +423,10 @@ export function MeadowEdge({ className, seed = 3 }: { className?: string; seed?:
   });
 
   // The earthworm's tunnel: a gentle wave through the topsoil, from beyond the left edge to beyond the right.
+  // Starts just past the left edge so the worm is visible almost immediately.
   const tunnel = smoothPath(
     Array.from({ length: 13 }, (_, i) => {
-      const x = -160 + i * 160;
+      const x = -20 + i * ((W + 40) / 12);
       return { x, y: edge(Math.max(0, Math.min(W, x))) + 62 + (i % 2 ? 26 : 0) + rand() * 14 };
     }),
   );
