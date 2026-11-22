@@ -54,14 +54,6 @@ function ServiceRow({ s }: { s: Service }) {
         </span>
         <span className="row-start-3 sm:col-start-2 sm:row-start-2 lg:col-start-3 lg:row-start-1">
           <span className="block text-ink-soft">{s.summary}</span>
-          <span className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-ink-mute">
-            {s.keywords.map((k) => (
-              <span key={k} className="inline-flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-fern" aria-hidden="true" />
-                {k}
-              </span>
-            ))}
-          </span>
         </span>
         <span
           aria-hidden="true"
