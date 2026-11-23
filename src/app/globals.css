@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark sections (.on-dark) can use `on-dark:` to swap text colours. */
+@custom-variant on-dark (&:where(.on-dark *));
+
 /* ------------------------------------------------------------------ tokens */
 
 @theme {
@@ -99,10 +102,13 @@ dd {
   text-wrap: pretty;
 }
 
-a {
-  color: inherit;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+/* Layered so that text colour utilities (text-mycelium, text-ink…) on links still win. */
+@layer base {
+  a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
 }
 
 :focus-visible {

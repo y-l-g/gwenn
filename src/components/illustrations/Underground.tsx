@@ -1,6 +1,7 @@
 import { fibrousRoots, grass, hypha, hyphalFan, roots, rng, rootMass, serratedLeaf, smoothPath, taproot, tuft } from "@/lib/organic";
 import type { CSSProperties } from "react";
 import { BeechLeaf, Cep, Chanterelle, Mycena, OakLeaf } from "./Botanical";
+import { Earthworm, WormBody } from "./Earthworm";
 
 type RootSystemProps = {
   className?: string;
@@ -225,31 +226,6 @@ function GrassStems({ edge, seed, count, width }: { edge: (x: number) => number;
   );
 }
 
-const WORM = {
-  a: "M-88 0C-78 -6 -66 -6 -56 0S-34 6 -24 0S-6 -5 0 0",
-  b: "M-82 0C-72 5 -60 5 -50 0S-30 -6 -20 0S-5 4 0 0",
-};
-
-/** An earthworm body pointing right, head at the origin. Animated bodies wriggle. */
-function WormBody({ wriggle = false }: { wriggle?: boolean }) {
-  const anim = wriggle ? (
-    <animate attributeName="d" dur="1.8s" repeatCount="indefinite" values={`${WORM.a};${WORM.b};${WORM.a}`} calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" />
-  ) : null;
-  return (
-    <g strokeLinecap="round" fill="none">
-      <path d={WORM.a} stroke="#b9786a" strokeWidth="5.5">
-        {anim}
-      </path>
-      <path d={WORM.a} stroke="#d39a8a" strokeWidth="2" strokeDasharray="1.2 4.2">
-        {anim}
-      </path>
-      <path d={WORM.a} stroke="#a5604f" strokeWidth="6.5" strokeDasharray="0 22 8 100">
-        {anim}
-      </path>
-    </g>
-  );
-}
-
 type FlowerKind = "dandelion" | "clock" | "leaves" | "poppy" | "cornflower" | "daisy" | "clover" | "buttercup";
 
 /** A stem rising from (x, y) with a slight lean; returns its path and tip. */
@@ -423,9 +399,10 @@ export function MeadowEdge({ className, seed = 3 }: { className?: string; seed?:
   });
 
   // The earthworm's tunnel: a gentle wave through the topsoil, from beyond the left edge to beyond the right.
+  // Starts just past the left edge so the worm is visible almost immediately.
   const tunnel = smoothPath(
     Array.from({ length: 13 }, (_, i) => {
-      const x = -160 + i * 160;
+      const x = -20 + i * ((W + 40) / 12);
       return { x, y: edge(Math.max(0, Math.min(W, x))) + 62 + (i % 2 ? 26 : 0) + rand() * 14 };
     }),
   );
@@ -520,10 +497,7 @@ export function MeadowEdge({ className, seed = 3 }: { className?: string; seed?:
 
       {/* The earthworm crosses from left to right; still, mid-field, for reduced motion. */}
       <g className="worm-moving">
-        <g>
-          <WormBody wriggle />
-          <animateMotion dur="52s" repeatCount="indefinite" rotate="auto" path={tunnel} />
-        </g>
+        <Earthworm path={tunnel} />
       </g>
       <g className="worm-still" transform={`translate(${W / 2 + 40} ${edge(W / 2) + 84}) rotate(-6)`}>
         <WormBody />

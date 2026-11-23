@@ -12,8 +12,6 @@ export type Service = {
   /** One sentence for lists and cards */
   summary: string;
   tasks: Task[];
-  /** Short keywords shown under the summary in the home index */
-  keywords: string[];
   available: boolean;
   /** CSS colour token used for accents */
   tone: "moss" | "beech" | "fern" | "chanterelle" | "rust";
@@ -28,7 +26,6 @@ export const services: Service[] = [
     name: "Entretien du jardin",
     short: "Jardin",
     summary: "Taille de haies, tonte, désherbage, taille d'arbres et bois de chauffage.",
-    keywords: ["Haies", "Tonte", "Désherbage", "Taille d'arbres", "Bois de chauffage"],
     tasks: [
       {
         title: "Taille de haies",
@@ -83,7 +80,6 @@ export const services: Service[] = [
     name: "Constructions légères en bois",
     short: "Constructions bois",
     summary: "Terrasses, pergolas, carports et petits ouvrages en bois, sur mesure.",
-    keywords: ["Terrasses", "Pergolas", "Carports", "Sur mesure"],
     tasks: [
       {
         title: "Terrasses en bois",
@@ -130,7 +126,6 @@ export const services: Service[] = [
     name: "Conseil habitat",
     short: "Conseil habitat",
     summary: "30 minutes au téléphone, gratuites, toute l'année : humidité, froid, factures, isolation, solaire.",
-    keywords: ["Humidité", "Froid", "Factures", "Isolation", "Ventilation", "Solaire"],
     tasks: [
       {
         title: "Un appel de 30 minutes, gratuit",
@@ -177,7 +172,6 @@ export const services: Service[] = [
     name: "Panneaux solaires prêts à brancher",
     short: "Solaire (bientôt)",
     summary: "Bientôt : pose de kits solaires prêts à brancher. Le conseil solaire est déjà disponible.",
-    keywords: ["Dimensionnement", "Pose en toiture"],
     tasks: [
       {
         title: "Dimensionner",
