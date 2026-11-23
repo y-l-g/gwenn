@@ -8,7 +8,7 @@ import { hypha } from "@/lib/organic";
 export function Breadcrumbs({ items }: { items: { name: string; path: string }[] }) {
   return (
     <>
-      <nav aria-label="Fil d'Ariane" className="text-sm text-ink-mute">
+      <nav aria-label="Fil d'Ariane" className="text-sm text-ink-mute on-dark:text-spore">
         <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <li>
             <Link href="/" className="link-quiet">
@@ -17,11 +17,11 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
           </li>
           {items.map((item, i) => (
             <li key={item.path} className="flex items-center gap-2">
-              <span aria-hidden="true" className="text-ink/30">
+              <span aria-hidden="true" className="text-ink/30 on-dark:text-spore/50">
                 /
               </span>
               {i === items.length - 1 ? (
-                <span aria-current="page" className="text-ink-soft">
+                <span aria-current="page" className="text-ink-soft on-dark:text-mycelium">
                   {item.name}
                 </span>
               ) : (
