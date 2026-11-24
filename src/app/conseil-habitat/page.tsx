@@ -106,8 +106,8 @@ export default function HabitatPage() {
                 Panneaux solaires : <span className="wonk text-rust">conseil dès maintenant</span>
               </h2>
               <p className="mt-3 max-w-2xl text-ink-soft">
-                Une offre reçue, un démarchage, un devis à comparer ? Je vous aide à vérifier qu&apos;il correspond à
-                votre maison et à votre consommation, pour éviter les arnaques.{" "}
+                Une offre reçue, un démarchage, un devis à comparer ? Je vous aide à vérifier qu&apos;il s&apos;agit
+                d&apos;une offre sérieuse pour éviter les arnaques.{" "}
                 <Link href="/panneaux-solaires" className="font-semibold text-rust-deep link-quiet">
                   Kits solaires prêts à brancher
                 </Link>

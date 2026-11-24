@@ -89,7 +89,7 @@ export const habitatTopics: HabitatTopic[] = [
     id: "solaire",
     label: "Panneaux solaires",
     signs: "Un démarchage insistant, un devis difficile à comparer, une promesse d'économies qui paraît trop belle.",
-    angle: "On regarde si l'offre correspond à votre consommation et à votre toit, et ce qu'elle coûte vraiment, pour éviter les arnaques.",
+    angle: "Je vous aide à vérifier qu'il s'agit d'une offre sérieuse pour éviter les arnaques.",
     links: ["factures", "chauffage", "bati"],
     pos: { x: 90, y: 47 },
     mpos: { x: 74, y: 88 },

@@ -40,7 +40,7 @@ export default function SolarPage() {
         <div className="container-site grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <div className="prose-site">
-              <h2>Dès maintenant : du conseil</h2>
+              <h2>Dès maintenant : du conseil gratuit de premier niveau.</h2>
               <p>
                 Je conseille toute l&apos;année sur le solaire afin d&apos;éviter les arnaques : une offre reçue, un
                 démarchage, un devis à comparer. C&apos;est gratuit, dans le cadre du{" "}
