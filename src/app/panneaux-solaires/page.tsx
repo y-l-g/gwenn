@@ -42,7 +42,7 @@ export default function SolarPage() {
             <div className="prose-site">
               <h2>Dès maintenant : du conseil gratuit de premier niveau.</h2>
               <p>
-                Je conseille toute l&apos;année sur le solaire afin d&apos;éviter les arnaques : une offre reçue, un
+                Après avoir travaillé 4 ans au sein d'une agence locale de l'energie et du climat, je conseille toute l&apos;année sur le solaire afin de vous éclairer au mieux sur ces offres et notamment, vous éviter les arnaques : une offre reçue, un
                 démarchage, un devis à comparer. C&apos;est gratuit, dans le cadre du{" "}
                 <Link href="/conseil-habitat">conseil habitat</Link>.
               </p>
